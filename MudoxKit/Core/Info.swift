@@ -3,7 +3,7 @@ import UIKit
 public enum Info {
   // MARK: App
   public static var appName: String {
-    return The.processInfo.processName
+    return The.process.processName
   }
   public static var appBundleID: String? {
     return The.mainBundle.bundleIdentifier

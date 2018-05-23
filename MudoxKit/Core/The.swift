@@ -51,7 +51,7 @@ public enum The {
   }
 
   /// ProcessInfo.processInfo
-  public static var processInfo: ProcessInfo {
+  public static var process: ProcessInfo {
     return ProcessInfo.processInfo
   }
 
