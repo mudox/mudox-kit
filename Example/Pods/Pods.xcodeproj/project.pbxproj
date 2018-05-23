@@ -603,6 +603,7 @@
 		F33F1552728DF1FE881E2BC94BE9631A /* QCKDSL.h in Headers */ = {isa = PBXBuildFile; fileRef = A3BCDFF1E5E56A2B921AE1E12038CFA7 /* QCKDSL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F40F69944D56EDE1D866ABD6DA16F031 /* Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC9276F42DE098FE60E4A395235C106 /* Rx.swift */; };
 		F4213C2BC3E8F6EBE7AC7C2E7AC6DA41 /* UIRefreshControl+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F74790515E852829BE6ADA00635897A /* UIRefreshControl+Rx.swift */; };
+		F4581E9C20B51F250015F6FF /* GlobalFuntions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4581E9B20B51F250015F6FF /* GlobalFuntions.swift */; };
 		F45C6C0BFB6CC8B53221BE457BB3C4DF /* SatisfyAllOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CEBE414DDA1DCC0561F700BC77D392 /* SatisfyAllOf.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		F479D5A24B9ADA9A391D36C00A4595D6 /* CompositeDisposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB93C616C04C1BCA6B7D629E04B43D9 /* CompositeDisposable.swift */; };
 		F4D0B917524FE5BD413F93118B3F0479 /* Enumerated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA5266EB8BA5E8EF9528A95FE7642A /* Enumerated.swift */; };
@@ -1480,6 +1481,7 @@
 		F3B2CB9E1DFA02318E3DD38BDFA8D851 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3D3BF4F52ECA66EF3363DE8B7250C3F /* FieldRow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FieldRow.swift; path = Source/Rows/Common/FieldRow.swift; sourceTree = "<group>"; };
 		F447034BAEB22DCC9B64D9A1C2FDB36F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F4581E9B20B51F250015F6FF /* GlobalFuntions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFuntions.swift; sourceTree = "<group>"; };
 		F4E7FDF75468325CF8327AA4A5400339 /* ObservableConvertibleType+Driver.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ObservableConvertibleType+Driver.swift"; path = "RxCocoa/Traits/Driver/ObservableConvertibleType+Driver.swift"; sourceTree = "<group>"; };
 		F584A95667D53D4B5BC8B531302386F7 /* JacKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = JacKit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F61470005168F187B0588EAC7B28BDFE /* Pods-Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Tests-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -1909,9 +1911,9 @@
 		2C931522D732F2B2C01B9A3070D79488 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				1206954F3CE7781E957126C33A0CA937 /* AppStates.swift */,
+				F4581E9B20B51F250015F6FF /* GlobalFuntions.swift */,
 				B1FF3A6B7E7A98AC0C1F18C9AD1FDD32 /* MediaPicker.swift */,
-				18C8749CA0129EDB38BA47208A3ABA9A /* UIApplication+Mdx.swift */,
+				F4581E9A20B506540015F6FF /* UIApplication */,
 				9ADE166CD830680E8F46065B99967452 /* View */,
 				5B1E45636063DAD094FD08E41CD8D8D2 /* View Controller */,
 			);
@@ -2740,6 +2742,15 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
+		F4581E9A20B506540015F6FF /* UIApplication */ = {
+			isa = PBXGroup;
+			children = (
+				1206954F3CE7781E957126C33A0CA937 /* AppStates.swift */,
+				18C8749CA0129EDB38BA47208A3ABA9A /* UIApplication+Mdx.swift */,
+			);
+			path = UIApplication;
+			sourceTree = "<group>";
+		};
 		FA9C02E65E1CC0324C6D0CB9A483C0AF /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -3463,6 +3474,7 @@
 				FA06FD8A2B32B0135283AE164A365618 /* MDXNavigationController.m in Sources */,
 				1DF550D923993425FB46D3A51EA36FF7 /* MediaPicker.swift in Sources */,
 				106051EC26BA3AD0B054553423C44AF1 /* Mudoxive.swift in Sources */,
+				F4581E9C20B51F250015F6FF /* GlobalFuntions.swift in Sources */,
 				8D58EE28E3DEEECBCB1E3C335038DD00 /* MudoxKit-dummy.m in Sources */,
 				CFB28A4E17F4A3580388131C33C2824A /* NavigationController.swift in Sources */,
 				D40AC8BBCF2D6C283BDB10C26E6C0AE6 /* NSString.m in Sources */,

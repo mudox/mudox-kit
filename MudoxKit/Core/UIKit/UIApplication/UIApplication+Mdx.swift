@@ -28,7 +28,7 @@ extension Mudoxive where Base: UIApplication {
       return false
     #endif
   }
-
+  
   /**
    Log a line when App state transition happens.
    */
