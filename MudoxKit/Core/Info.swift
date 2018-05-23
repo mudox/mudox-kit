@@ -40,6 +40,19 @@ public enum Info {
     return The.device.systemVersion
   }
 
+  public static var isLowPowerModeEnabled: Bool {
+    return The.process.isLowPowerModeEnabled
+  }
+  
+  @available(iOS 11.0, *)
+  public static var thermalState: ProcessInfo.ThermalState {
+    return The.process.thermalState
+  }
+  
+  public static var isReduceMotionEnabled: Bool {
+    return UIAccessibilityIsReduceMotionEnabled()
+  }
+
   // MARK: Screen
   public static var screenWidth: CGFloat {
     return The.mainScreen.bounds.width
