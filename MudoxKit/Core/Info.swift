@@ -14,11 +14,15 @@ public enum Info {
   public static var appBuild: String? {
     return The.mainBundle.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String
   }
+  
   public static var isDebug: Bool {
     return The.app.mdx.isInDebugMode
   }
   public static var isSimulator: Bool {
     return The.app.mdx.isInSimulator
+  }
+  public static var isUITest: Bool {
+    return The.process.environment["isUITest"] != nil
   }
 
   // MARK: Device

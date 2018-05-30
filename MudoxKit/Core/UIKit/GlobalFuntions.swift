@@ -6,10 +6,10 @@ fileprivate let jack = Jack.with(levelOfThisFile: .verbose)
 
 /// Global function version of `DispatchQueue.asynAfter...`.
 ///
-///       after(3) {
-///         // would execute after 3 second in the default
-///         // queue which is `DispathQueue.main`
-///       }
+///     after(3) {
+///       // would execute after 3 second in the default
+///       // queue which is `DispathQueue.main`
+///     }
 ///
 /// - Parameters:
 ///   - interval: Delayed interval in seconds.

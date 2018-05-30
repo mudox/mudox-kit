@@ -14,5 +14,9 @@ target 'Demo' do
 
     pod 'Quick'
     pod 'Nimble'
+
+    pod 'RxTest'
+    pod 'RxBlocking'
+    pod 'RxNimble'
   end
 end
