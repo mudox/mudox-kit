@@ -54,39 +54,32 @@ public struct MBPCommand {
 
   public static func update(progress: Double, extra change: ChangeMBP? = nil) -> MBPCommand {
     return MBPCommand.init { view in
+      if MBProgressHUD(for: view) == nil {
+        jack.warn("HUD view should already be shown")
+      }
+
       // make sure hud is shown
       let hud = MBProgressHUD(for: view) ?? MBProgressHUD.showAdded(to: view, animated: true)
+
       hud.progress = Float(progress)
 
-      // apply extra change if any
       change?(hud)
+
+      if hud.mode == .indeterminate
+        || hud.mode == .customView
+        || hud.mode == .text {
+        jack.warn("Invalid MBProgressHUDMode (\(hud.mode.caseName)), the progress can not be shown")
+      }
     }
   }
 
   public static func nextStep(
     title: String? = nil,
     message: String? = nil,
-    progress: Double? = nil,
     mode: MBProgressHUDMode = .indeterminate,
     extra change: ChangeMBP? = nil
   ) -> MBPCommand {
-    return MBPCommand.init { view in
-      // make sure hud is shown
-      let hud = MBProgressHUD(for: view) ?? MBProgressHUD.showAdded(to: view, animated: true)
-
-      // texts
-      hud.label.text = title
-      hud.detailsLabel.text = message
-
-      // progress and mode
-      if let progress = progress {
-        hud.progress = Float(progress)
-      }
-      hud.mode = mode
-
-      // apply extra change if any
-      change?(hud)
-    }
+    return start(title: title, message: message, mode: mode, extra: change)
   }
 
   /// Predefined appearance for success result.
@@ -106,28 +99,28 @@ public struct MBPCommand {
     return MBPCommand.init { view in
       // make sure hud is shown
       let hud = MBProgressHUD(for: view) ?? MBProgressHUD.showAdded(to: view, animated: true)
-
-      // progress and mode
+      
+      // reset progress
       hud.progress = 0
-      hud.mode = .customView
-
+      
       // custom view to show success mark
-      let image = UIImage.checkMark
+      hud.mode = .customView
+      let image = MBPResources.checkMarkImage
       let imageView = UIImageView(image: image)
       hud.customView = imageView
-
+      
       // text
       hud.label.text = title
       hud.detailsLabel.text = message
-
+      
       // color
       hud.setForeground(color: .white)
-      hud.setBackground(color: .success)
-
-
+      hud.setBackground(color: MBPResources.successColor)
+      
+      
       // apply extra change if any
       change?(hud)
-
+      
       // hide
       hud.hide(animated: true, afterDelay: interval)
     }
@@ -146,12 +139,12 @@ public struct MBPCommand {
       // make sure hud is shown
       let hud = MBProgressHUD(for: view) ?? MBProgressHUD.showAdded(to: view, animated: true)
 
-      // progress and mode
+      // reset progress
       hud.progress = 0
-      hud.mode = .customView
 
       // custom view to show success mark
-      let image = UIImage.crossMark
+      hud.mode = .customView
+      let image = MBPResources.crossMarkImage
       let imageView = UIImageView(image: image)
       hud.customView = imageView
 
@@ -161,8 +154,7 @@ public struct MBPCommand {
 
       // color
       hud.setForeground(color: .white)
-      hud.setBackground(color: .failure)
-
+      hud.setBackground(color: MBPResources.failureColor)
 
       // apply extra change if any
       change?(hud)
