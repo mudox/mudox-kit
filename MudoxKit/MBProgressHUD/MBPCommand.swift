@@ -52,7 +52,12 @@ public struct MBPCommand {
     }
   }
 
-  public static func update(progress: Double, extra change: ChangeMBP? = nil) -> MBPCommand {
+  public static func updateProgress(
+    _ progress: Double,
+    extra change: ChangeMBP? = nil
+  )
+    -> MBPCommand
+  {
     return MBPCommand.init { view in
       if MBProgressHUD(for: view) == nil {
         jack.warn("HUD view should already be shown")
@@ -99,28 +104,28 @@ public struct MBPCommand {
     return MBPCommand.init { view in
       // make sure hud is shown
       let hud = MBProgressHUD(for: view) ?? MBProgressHUD.showAdded(to: view, animated: true)
-      
+
       // reset progress
       hud.progress = 0
-      
+
       // custom view to show success mark
       hud.mode = .customView
       let image = MBPResources.checkMarkImage
       let imageView = UIImageView(image: image)
       hud.customView = imageView
-      
+
       // text
       hud.label.text = title
       hud.detailsLabel.text = message
-      
+
       // color
       hud.setForeground(color: .white)
       hud.setBackground(color: MBPResources.successColor)
-      
-      
+
+
       // apply extra change if any
       change?(hud)
-      
+
       // hide
       hud.hide(animated: true, afterDelay: interval)
     }

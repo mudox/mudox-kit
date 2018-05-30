@@ -42,7 +42,7 @@
         ]
       },
       "resource_bundles": {
-        "mbp": "MudoxKit/MBP/MBP.xcassets"
+        "mbp": "MudoxKit/MBProgressHUD/mbp.xcassets"
       }
     },
     {

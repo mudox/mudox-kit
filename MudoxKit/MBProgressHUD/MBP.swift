@@ -27,5 +27,50 @@ extension MBPProxy where Base: UIView {
     }
   }
 
+  public func start(
+    title: String? = nil,
+    message: String? = nil,
+    mode: MBProgressHUDMode = .indeterminate,
+    extra change: ChangeMBP? = nil
+  ) {
+    execute(.start(title: title, message: message, mode: mode, extra: change))
+  }
+
+  public func updateProgress(
+    _ progress: Double,
+    extra change: ChangeMBP? = nil
+  )
+  {
+    execute(.updateProgress(progress, extra: change))
+  }
+
+  public func nextStep(
+    title: String? = nil,
+    message: String? = nil,
+    mode: MBProgressHUDMode = .indeterminate,
+    extra change: ChangeMBP? = nil
+  ) {
+    execute(.nextStep(title: title, message: message, mode: mode, extra: change))
+  }
+
+  public func success(
+    title: String? = nil,
+    message: String? = nil,
+    hideIn interval: TimeInterval = 1,
+    extra change: ChangeMBP? = nil
+  )
+  {
+    execute(.success(title: title, message: message, hideIn: interval, extra: change))
+  }
+
+  public func failure(
+    title: String? = nil,
+    message: String? = nil,
+    hideIn interval: TimeInterval = 1,
+    extra change: ChangeMBP? = nil
+  )
+  {
+    execute(.failure(title: title, message: message, hideIn: interval, extra: change))
+  }
 }
 

@@ -220,18 +220,18 @@ class MbpVC: FormViewController {
     return section
 
   }
-  
+
   func simulate() {
     let commands = Observable<MBPCommand>
       .create { observer in
         observer.onNext(.start(title: "Downloading ...", mode: .annularDeterminate) { hud in
           hud.minSize = CGSize(width: 160, height: 100)
-          })
-        
+        })
+
         var progress = 0.0
         while progress < 1.0 {
           Thread.sleep(forTimeInterval: 0.05)
-          observer.onNext(.update(progress: progress))
+          observer.onNext(.updateProgress(progress))
           progress += 0.02
         }
         if arc4random_uniform(2) == 0 {
@@ -241,11 +241,11 @@ class MbpVC: FormViewController {
         }
         Thread.sleep(forTimeInterval: 2)
         observer.onCompleted()
-        
+
         return Disposables.create()
       }
       .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
-    
+
     commands
       .asDriver(onErrorJustReturn: .failure(title: "Oops!"))
       .drive(view.mbp.hud)
@@ -264,14 +264,13 @@ class MbpVC: FormViewController {
     let height = CGFloat(values["height"] as! Float)
     let minSize = CGSize(width: width, height: height)
 
-    let command = MBPCommand.nextStep(title: title, message: message, mode: mode) {
+    return .nextStep(title: title, message: message, mode: mode) {
       hud in
       hud.isSquare = isSquare
       hud.margin = margin
       hud.minSize = minSize
     }
 
-    return command
   }
 
   func updateDemoHUD() {
