@@ -39,7 +39,7 @@ Pod::Spec.new do |s|
   s.subspec 'MBProgressHUD' do |ss|
     ss.source_files = 'MudoxKit/MBProgressHUD/**/*.swift'
     ss.dependency 'MBProgressHUD'
-    ss.resource_bundle = { 'mbp' => 'MudoxKit/MBP/MBP.xcassets' }
+    ss.resource_bundle = { 'mbp' => 'MudoxKit/MBProgressHUD/mbp.xcassets' }
   end
 
   s.subspec 'SVProgressHUD' do |ss|
