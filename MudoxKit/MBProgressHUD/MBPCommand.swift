@@ -29,7 +29,7 @@ public struct MBPCommand {
     self.change = change
   }
 
-  public static func start(
+  public static func info(
     title: String? = nil,
     message: String? = nil,
     mode: MBProgressHUDMode = .indeterminate,
@@ -52,30 +52,13 @@ public struct MBPCommand {
     }
   }
 
-  public static func updateProgress(
-    _ progress: Double,
+  public static func start(
+    title: String? = nil,
+    message: String? = nil,
+    mode: MBProgressHUDMode = .indeterminate,
     extra change: ChangeMBP? = nil
-  )
-    -> MBPCommand
-  {
-    return MBPCommand.init { view in
-      if MBProgressHUD(for: view) == nil {
-        jack.warn("HUD view should already be shown")
-      }
-
-      // make sure hud is shown
-      let hud = MBProgressHUD(for: view) ?? MBProgressHUD.showAdded(to: view, animated: true)
-
-      hud.progress = Float(progress)
-
-      change?(hud)
-
-      if hud.mode == .indeterminate
-        || hud.mode == .customView
-        || hud.mode == .text {
-        jack.warn("Invalid MBProgressHUDMode (\(hud.mode.caseName)), the progress can not be shown")
-      }
-    }
+  ) -> MBPCommand {
+    return info(title: title, message: message, mode: mode, extra: change)
   }
 
   public static func nextStep(
@@ -84,7 +67,33 @@ public struct MBPCommand {
     mode: MBProgressHUDMode = .indeterminate,
     extra change: ChangeMBP? = nil
   ) -> MBPCommand {
-    return start(title: title, message: message, mode: mode, extra: change)
+    return nextStep(title: title, message: message, mode: mode, extra: change)
+  }
+
+  public static func updateProgress(
+    _ progress: Double,
+    extra change: ChangeMBP? = nil
+    )
+    -> MBPCommand
+  {
+    return MBPCommand.init { view in
+      if MBProgressHUD(for: view) == nil {
+        jack.warn("HUD view should already be shown")
+      }
+      
+      // make sure hud is shown
+      let hud = MBProgressHUD(for: view) ?? MBProgressHUD.showAdded(to: view, animated: true)
+      
+      hud.progress = Float(progress)
+      
+      change?(hud)
+      
+      if hud.mode == .indeterminate
+        || hud.mode == .customView
+        || hud.mode == .text {
+        jack.warn("Invalid MBProgressHUDMode (\(hud.mode.caseName)), the progress can not be shown")
+      }
+    }
   }
 
   /// Predefined appearance for success result.

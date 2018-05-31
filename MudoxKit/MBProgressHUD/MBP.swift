@@ -26,14 +26,32 @@ extension MBPProxy where Base: UIView {
       command.execute(base)
     }
   }
-
+  
+  public func info(
+    title: String? = nil,
+    message: String? = nil,
+    mode: MBProgressHUDMode = .indeterminate,
+    extra change: ChangeMBP? = nil
+    ) {
+    execute(.info(title: title, message: message, mode: mode, extra: change))
+  }
+  
   public func start(
     title: String? = nil,
     message: String? = nil,
     mode: MBProgressHUDMode = .indeterminate,
     extra change: ChangeMBP? = nil
   ) {
-    execute(.start(title: title, message: message, mode: mode, extra: change))
+    execute(.info(title: title, message: message, mode: mode, extra: change))
+  }
+
+  public func nextStep(
+    title: String? = nil,
+    message: String? = nil,
+    mode: MBProgressHUDMode = .indeterminate,
+    extra change: ChangeMBP? = nil
+    ) {
+    execute(.info(title: title, message: message, mode: mode, extra: change))
   }
 
   public func updateProgress(
@@ -42,15 +60,6 @@ extension MBPProxy where Base: UIView {
   )
   {
     execute(.updateProgress(progress, extra: change))
-  }
-
-  public func nextStep(
-    title: String? = nil,
-    message: String? = nil,
-    mode: MBProgressHUDMode = .indeterminate,
-    extra change: ChangeMBP? = nil
-  ) {
-    execute(.nextStep(title: title, message: message, mode: mode, extra: change))
   }
 
   public func success(
