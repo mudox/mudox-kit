@@ -32,6 +32,7 @@ Pod::Spec.new do |s|
     core.source_files = 'MudoxKit/Core/**/*'
 
     core.dependency 'JacKit'
+
     core.dependency 'RxSwift'
     core.dependency 'RxCocoa'
   end
@@ -56,6 +57,9 @@ Pod::Spec.new do |s|
     ss.source_files = 'MudoxKit/ObjectiveC/**/*'
   end
 
+  s.subspec 'Eureka' do |ss|
+    ss.source_files = 'MudoxKit/Eureka/**/*'
+    ss.dependency 'Eureka'
   end
 
   s.subspec 'All' do |ss|
@@ -64,6 +68,7 @@ Pod::Spec.new do |s|
     ss.dependency 'MudoxKit/SVProgressHUD'
     ss.dependency 'MudoxKit/NVActivityIndicatorView'
     ss.dependency 'MudoxKit/ObjectiveC'
+    ss.dependency 'MudoxKit/Eureka'
   end
 
 end
