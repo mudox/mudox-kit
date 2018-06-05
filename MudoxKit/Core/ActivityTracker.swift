@@ -2,76 +2,148 @@ import class UIKit.UIApplication
 
 import RxSwift
 import RxCocoa
+import RxSwiftExt
 
-public enum Activity {
+import JacKit
+fileprivate let jack = Jack.with(levelOfThisFile: .verbose)
 
-  case start(task: String)
-  case progress(Double, task: String)
-  case success(task: String)
-  case failure(task: String)
-
-  public var task: String {
-    switch self {
-    case .start(let task):
-      return task
-    case .progress(_, let task):
-      return task
-    case .success(let task):
-      return task
-    case .failure(let task):
-      return task
-    }
-  }
+protocol ActivityType: Hashable {
+  var oneAtATime: Bool { get }
+  var isLoggingEnbaled: Bool { get }
 }
 
-final class ActivityTracker {
+extension ActivityType {
+  var oneAtATime: Bool { return true }
+  var isLoggingEnbaled: Bool { return false }
+}
 
-  private let _subject = PublishSubject<Activity>()
-  
-  //  MARK: Record activities
+public final class ActivityTracker<Activity: Hashable> {
 
-  public func start(_ task: String) {
-    _subject.onNext(.start(task: task))
+  public struct Event {
+
+    public enum State {
+      case start
+      case next(Any?)
+      case succeed
+      case fail(Error)
+      case end
+    }
+
+    let activity: Activity
+    let state: State
   }
 
-  public func progress(_ progress: Double, task: String) {
-    _subject.onNext(.progress(progress, task: task))
+  public init() { }
+
+  // MARK: Private Members
+
+  private let _lock = NSRecursiveLock()
+  private var _activities: [Activity: UInt] = [:]
+
+  private let _subject = PublishSubject<Event>()
+
+  private func _post(_ event: Event) {
+    _lock.lock(); defer { _lock.unlock() }
+
+    switch event.state {
+    case .start:
+      _activities[event.activity, default: 0] += 1
+    case .end:
+      let count = _activities[event.activity, default: 0]
+      guard count > 0 else {
+        jack.failure("Internal data inconsistent, count should >= 0")
+        break
+      }
+      _activities[event.activity] = count - 1
+    default:
+      break
+    }
+
+    _subject.onNext(event)
   }
 
-  public func sucess(_ task: String) {
-    _subject.onNext(.success(task: task))
+  //  MARK: Record Activities
+
+  public func start(_ activity: Activity) {
+    _post(Event(activity: activity, state: .start))
   }
 
-  public func failure(_ task: String) {
-    _subject.onNext(.failure(task: task))
-  }
-  
-  // MARK: Handle activities
-
-  public func activity(of task: String) -> Observable<Activity> {
-    return _subject.filter { $0.task == task }
+  public func next(_ element: Any?, _ activity: Activity) {
+    _post(Event(activity: activity, state: .next(element)))
   }
 
-  public func executing(of task: String) -> Observable<Bool> {
-    return activity(of: task)
-      .filter ({
-        switch $0 {
-        case .start, .success, .failure:
-          return true
-        case .progress:
-          return false
+  public func succeed(_ activity: Activity) {
+    _post(Event(activity: activity, state: .succeed))
+  }
+
+  public func fail(_ error: Error, _ activity: Activity) {
+    _post(Event(activity: activity, state: .fail(error)))
+  }
+
+  public func end(_ activity: Activity) {
+    _post(Event(activity: activity, state: .end))
+  }
+
+  // MARK: Handle Activities
+
+  public func states(of activity: Activity) -> Observable<Event.State> {
+    return states(of: [activity])
+  }
+
+  public func states(of activities: [Activity]) -> Observable<Event.State> {
+    return _subject
+      .filterMap ({
+        if activities.contains($0.activity) {
+          return .map($0.state)
+        } else {
+          return .ignore
         }
       })
-      .map ({
+  }
+
+  public func executing(of act: Activity) -> Observable<Bool> {
+    return states(of: act)
+      .map {
         switch $0 {
-        case .start:
+        case .start, .next:
           return true
-        case .success, .failure:
+        case .succeed, .fail, .end:
           return false
-        default:
-          fatalError()
         }
-      })
+      }
+      .distinctUntilChanged()
+      .startWith(false)
+  }
+
+  public func combinedExecuting(of activities: [Activity]) -> Observable<Bool> {
+    let e = activities.map(executing)
+    return Observable.combineLatest(e)
+      .map { $0.any { $0 } }
+  }
+
+}
+
+extension ObservableType {
+
+  public func track<A>(_ activity: A, by tracker: ActivityTracker<A>) -> Observable<Self.E> {
+    return asObservable()
+      .do(
+        onNext: {
+          tracker.next($0, activity)
+        },
+        onError: {
+          tracker.fail($0, activity)
+        },
+        onCompleted: {
+          tracker.succeed(activity)
+        },
+        onSubscribe: {
+          tracker.start(activity)
+        },
+        onDispose: {
+          tracker.end(activity)
+        }
+      )
   }
 
 }
