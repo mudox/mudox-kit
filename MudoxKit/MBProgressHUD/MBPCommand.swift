@@ -61,16 +61,16 @@ public struct MBPCommand {
     return info(title: title, message: message, mode: mode, extra: change)
   }
 
-  public static func nextStep(
+  public static func next(
     title: String? = nil,
     message: String? = nil,
     mode: MBProgressHUDMode = .indeterminate,
     extra change: ChangeMBP? = nil
   ) -> MBPCommand {
-    return nextStep(title: title, message: message, mode: mode, extra: change)
+    return info(title: title, message: message, mode: mode, extra: change)
   }
 
-  public static func updateProgress(
+  public static func progress(
     _ progress: Double,
     extra change: ChangeMBP? = nil
     )

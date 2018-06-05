@@ -45,7 +45,7 @@ extension MBPProxy where Base: UIView {
     execute(.info(title: title, message: message, mode: mode, extra: change))
   }
 
-  public func nextStep(
+  public func next(
     title: String? = nil,
     message: String? = nil,
     mode: MBProgressHUDMode = .indeterminate,
@@ -54,12 +54,12 @@ extension MBPProxy where Base: UIView {
     execute(.info(title: title, message: message, mode: mode, extra: change))
   }
 
-  public func updateProgress(
+  public func progress(
     _ progress: Double,
     extra change: ChangeMBP? = nil
   )
   {
-    execute(.updateProgress(progress, extra: change))
+    execute(.progress(progress, extra: change))
   }
 
   public func success(
@@ -82,4 +82,3 @@ extension MBPProxy where Base: UIView {
     execute(.failure(title: title, message: message, hideIn: interval, extra: change))
   }
 }
-
