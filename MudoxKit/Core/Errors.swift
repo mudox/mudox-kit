@@ -13,12 +13,8 @@ fileprivate let jack = Jack.with(levelOfThisFile: .verbose)
 
 
 public enum CommonError: Error {
-  
   case cancelled
-  
   case casting(Any?, to: Any.Type)
-  
-  case weakReferenceGone
-  
+  case weakReference
   case error(String)
 }

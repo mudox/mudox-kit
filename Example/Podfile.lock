@@ -8,15 +8,18 @@ PODS:
   - MBProgressHUD (1.1.0)
   - MudoxKit/All (0.1.0):
     - MudoxKit/Core
+    - MudoxKit/Eureka
     - MudoxKit/MBProgressHUD
     - MudoxKit/NVActivityIndicatorView
     - MudoxKit/ObjectiveC
     - MudoxKit/SVProgressHUD
-    - MudoxKit/SwiftyJSON
   - MudoxKit/Core (0.1.0):
     - JacKit
     - RxCocoa
     - RxSwift
+    - RxSwiftExt
+  - MudoxKit/Eureka (0.1.0):
+    - Eureka
   - MudoxKit/MBProgressHUD (0.1.0):
     - MBProgressHUD
   - MudoxKit/NVActivityIndicatorView (0.1.0):
@@ -24,8 +27,6 @@ PODS:
   - MudoxKit/ObjectiveC (0.1.0)
   - MudoxKit/SVProgressHUD (0.1.0):
     - SVProgressHUD
-  - MudoxKit/SwiftyJSON (0.1.0):
-    - SwiftyJSON
   - Nimble (7.1.1)
   - NVActivityIndicatorView (4.2.1):
     - NVActivityIndicatorView/Presenter (= 4.2.1)
@@ -40,10 +41,13 @@ PODS:
     - RxBlocking (~> 4.0)
     - RxSwift (~> 4.0)
   - RxSwift (4.1.2)
+  - RxSwiftExt (3.2.0):
+    - RxSwiftExt/Core (= 3.2.0)
+  - RxSwiftExt/Core (3.2.0):
+    - RxSwift (~> 4.0)
   - RxTest (4.1.2):
     - RxSwift (~> 4.0)
   - SVProgressHUD (2.2.5)
-  - SwiftyJSON (4.1.0)
 
 DEPENDENCIES:
   - Eureka
@@ -67,9 +71,9 @@ SPEC REPOS:
     - RxCocoa
     - RxNimble
     - RxSwift
+    - RxSwiftExt
     - RxTest
     - SVProgressHUD
-    - SwiftyJSON
 
 EXTERNAL SOURCES:
   JacKit:
@@ -82,7 +86,7 @@ SPEC CHECKSUMS:
   Eureka: b88fb930e42c79f8c03c373d0fcdc28c1d6c50ed
   JacKit: 1e8b3f7e1441a325c39d29f891af81bd0cf5c28d
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
-  MudoxKit: f065e13ffe6e89478cd2a83a687ccafe33c29c4d
+  MudoxKit: e6a849edd044c4708a6bb2dab3e2ff52d0a81b14
   Nimble: 391f07782af4b37914f9bd7b2ffbb952731b8202
   NVActivityIndicatorView: 8068ba3ad39cb44cbaab25d89ff2546b3f092681
   Quick: 03278013f71aa05fe9ecabc94fbcc6835f1ee76f
@@ -90,9 +94,9 @@ SPEC CHECKSUMS:
   RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
   RxNimble: e5a34bf3b18d85406fc2a6e2cbc73aa2b4a858f0
   RxSwift: e49536837d9901277638493ea537394d4b55f570
+  RxSwiftExt: 64b7140124629a6a084159735f3714f0fb1c61d6
   RxTest: e634f15fd2c2cd0e0120132ef7a4f7be69ad0393
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
 PODFILE CHECKSUM: cb359ed12f223cb3dae653195ba69ddba76c43d3
 

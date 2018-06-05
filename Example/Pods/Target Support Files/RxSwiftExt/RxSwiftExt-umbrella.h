@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double SwiftyJSONVersionNumber;
-FOUNDATION_EXPORT const unsigned char SwiftyJSONVersionString[];
+FOUNDATION_EXPORT double RxSwiftExtVersionNumber;
+FOUNDATION_EXPORT const unsigned char RxSwiftExtVersionString[];
 
