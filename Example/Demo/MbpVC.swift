@@ -54,7 +54,7 @@ class MbpVC: FormViewController {
       .disposed(by: disposeBag)
 
     mbpCommands
-      .asDriver(onErrorJustReturn: .failure(title: nil, message: "Somthing happend ..."))
+      .asDriver(onErrorJustReturn: .failure(title: nil, message: "Something happend ..."))
       .drive(self.headerView.mbp.hud)
       .disposed(by: disposeBag)
 
@@ -231,7 +231,7 @@ class MbpVC: FormViewController {
         var progress = 0.0
         while progress < 1.0 {
           Thread.sleep(forTimeInterval: 0.05)
-          observer.onNext(.updateProgress(progress))
+          observer.onNext(.progress(progress))
           progress += 0.02
         }
         if arc4random_uniform(2) == 0 {
@@ -264,7 +264,7 @@ class MbpVC: FormViewController {
     let height = CGFloat(values["height"] as! Float)
     let minSize = CGSize(width: width, height: height)
 
-    return .nextStep(title: title, message: message, mode: mode) {
+    return .next(title: title, message: message, mode: mode) {
       hud in
       hud.isSquare = isSquare
       hud.margin = margin
