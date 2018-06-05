@@ -120,8 +120,8 @@ class AlertVC: FormViewController {
     }.cellUpdate { cell, row in
       with(cell.textView) { v in
         cell.isUserInteractionEnabled = false
-        v?.font = UIFont.systemFont(ofSize: 14)
-        v?.backgroundColor = .clear
+        v.font = UIFont.systemFont(ofSize: 14)
+        v.backgroundColor = .clear
       }
     }
   }
@@ -163,10 +163,8 @@ class AlertVC: FormViewController {
 
     with(navigationItem) { nav in
       nav.title = "Alert Layout"
-      nav.rightBarButtonItem = with(UIBarButtonItem()) { item in
-        item.title = "Show"
-        return item
-      }
+      nav.rightBarButtonItem = UIBarButtonItem()
+      nav.rightBarButtonItem?.title = "Show"
     }
 
     with(tableView!) { tv in
