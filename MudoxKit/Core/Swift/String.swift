@@ -7,35 +7,15 @@
 
 import Foundation
 
+extension String: MudoxiveCompatible { }
+
 // MARK: - Common extension of `String` or `Substring`
 extension StringProtocol where Index == String.Index {
-  
+
   public func trimmed() -> String {
     return self.trimmingCharacters(in: .whitespacesAndNewlines)
   }
 
-  public var urlDecoded: String? {
-    return removingPercentEncoding
-  }
-  
-  public var urlEncoded: String? {
-    return addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-  }
-
-}
-
-// MARK: - Extension of `String`
-extension String {
-  
-  public var base64Decoded: String? {
-    guard let data = Data(base64Encoded: self) else { return nil }
-    return String(data: data, encoding: .utf8)
-  }
-  
-  public var base64Encoded: String? {
-    return data(using: .utf8)?.base64EncodedString()
-  }
-  
 }
 
 extension Optional where Wrapped: StringProtocol {
@@ -46,3 +26,10 @@ extension Optional where Wrapped: StringProtocol {
 
 }
 
+extension Substring {
+
+  var string: String {
+    return String(self)
+  }
+  
+}
