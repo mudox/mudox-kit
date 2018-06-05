@@ -16,15 +16,15 @@ fileprivate let jack = Jack.with(levelOfThisFile: .verbose)
 ///   - queue: Dispatch queue to perform the delayed work in.
 ///   - work: The delayed work.
 public func after(
-  _ interval: TimeInterval,
+  seconds: TimeInterval,
   in queue: DispatchQueue = DispatchQueue.main,
   do work: @escaping () -> Void
 )
 {
-  guard interval > 0 else {
+  guard seconds > 0 else {
     jack.failure("paramter `interval` must > 0")
     return
   }
-  
-  DispatchQueue.main.asyncAfter(deadline: .now() + interval, execute: work)
+
+  DispatchQueue.main.asyncAfter(deadline: .now() + seconds, execute: work)
 }
