@@ -35,6 +35,7 @@ Pod::Spec.new do |s|
 
     core.dependency 'RxSwift'
     core.dependency 'RxCocoa'
+    core.dependency 'RxSwiftExt'
   end
 
   s.subspec 'MBProgressHUD' do |ss|
