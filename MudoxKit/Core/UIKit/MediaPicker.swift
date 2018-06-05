@@ -41,6 +41,10 @@ public struct MediaPicker {
       return Single.error(error)
     }
 
+    if controller.delegate != nil {
+      jack.failure("user should not set the delegate property in the `configure` closure")
+    }
+
     var delegate: ImagePickerDelegate? = ImagePickerDelegate(for: controller)
     controller.delegate = delegate
 
@@ -56,7 +60,7 @@ public struct MediaPicker {
       .take(1)
       .asSingle()
       .do(onDispose: { [weak controller] in
-        delegate = nil // strongly hold the delegate object
+        delegate = nil // make the closure strongly retain the delegate object
         controller?.mdx.dismiss(animated: animated)
       })
   }
