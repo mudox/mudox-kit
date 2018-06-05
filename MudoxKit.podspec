@@ -56,9 +56,6 @@ Pod::Spec.new do |s|
     ss.source_files = 'MudoxKit/ObjectiveC/**/*'
   end
 
-  s.subspec 'SwiftyJSON' do |ss|
-    ss.source_files = 'MudoxKit/SwiftyJSON/**/*'
-    ss.dependency 'SwiftyJSON'
   end
 
   s.subspec 'All' do |ss|
@@ -66,7 +63,6 @@ Pod::Spec.new do |s|
     ss.dependency 'MudoxKit/MBProgressHUD'
     ss.dependency 'MudoxKit/SVProgressHUD'
     ss.dependency 'MudoxKit/NVActivityIndicatorView'
-    ss.dependency 'MudoxKit/SwiftyJSON'
     ss.dependency 'MudoxKit/ObjectiveC'
   end
 
