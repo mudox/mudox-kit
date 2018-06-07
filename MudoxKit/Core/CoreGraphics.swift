@@ -1,9 +1,3 @@
-//
-//  CoreGraphics.swift
-//  iOSKit
-//
-//  Created by Mudox on 01/04/2018.
-//
 
 import Foundation
 

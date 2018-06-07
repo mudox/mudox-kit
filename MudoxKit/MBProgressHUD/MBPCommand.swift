@@ -1,9 +1,3 @@
-//
-//  MBPCommand.swift
-//  CocoaLumberjack
-//
-//  Created by Mudox on 2018/4/5.
-//
 
 import Foundation
 import MBProgressHUD

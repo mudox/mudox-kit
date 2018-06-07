@@ -1,10 +1,3 @@
-//
-//  Mudoxive.swift
-//  MudoxKit
-//
-//  Created by Mudox on 14/08/2017.
-//
-//
 
 /**
  Use `Mudoxive` proxy as customization point for constrained protocol extensions.

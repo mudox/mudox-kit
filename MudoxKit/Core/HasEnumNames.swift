@@ -1,9 +1,3 @@
-//
-//  File.swift
-//  iOSKit
-//
-//  Created by Mudox on 2018/4/7.
-//
 
 import UIKit
 
