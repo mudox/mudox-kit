@@ -23,5 +23,10 @@ extension Mudoxive where Base: UIViewController {
       base.dismiss(animated: animated, completion: nil)
     }
   }
+  
+  public func setBackButtonTitleEmpty() {
+    base.navigationItem.backBarButtonItem =
+      UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+  }
 
 }
