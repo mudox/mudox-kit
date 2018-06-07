@@ -1,7 +1,8 @@
 import UIKit
 
 import JacKit
-fileprivate let jack = Jack.with(levelOfThisFile: .verbose)
+fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
+
 
 let _appStates: [Notification.Name: String] = [
   // launching state

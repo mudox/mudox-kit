@@ -1,7 +1,7 @@
 import UIKit
 import JacKit
 
-fileprivate let jack = Jack.with(levelOfThisFile: .verbose)
+fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
 
 extension Mudoxive where Base: UIViewController {
 

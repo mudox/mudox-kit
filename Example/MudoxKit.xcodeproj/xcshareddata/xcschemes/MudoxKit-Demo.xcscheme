@@ -62,6 +62,13 @@
             ReferencedContainer = "container:MudoxKit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "JACKIT_SERVER_URL"
+            value = "http://192.168.0.100:7000"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

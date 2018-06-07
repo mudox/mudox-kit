@@ -4,7 +4,7 @@ import RxSwift
 import RxCocoa
 
 import JacKit
-fileprivate let jack = Jack.with(levelOfThisFile: .verbose)
+fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
 
 public struct MediaPicker {
 
@@ -42,7 +42,7 @@ public struct MediaPicker {
     }
 
     if controller.delegate != nil {
-      jack.failure("user should not set the delegate property in the `configure` closure")
+      Jack.failure("user should not set the delegate property in the `configure` closure")
     }
 
     var delegate: ImagePickerDelegate? = ImagePickerDelegate(for: controller)

@@ -1,7 +1,7 @@
 import Foundation
 
 import JacKit
-fileprivate let jack = Jack.with(levelOfThisFile: .verbose)
+fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
 
 
 /// Global function version of `DispatchQueue.asynAfter...`.
@@ -22,7 +22,7 @@ public func after(
 )
 {
   guard seconds > 0 else {
-    jack.failure("paramter `interval` must > 0")
+    Jack.failure("paramter `interval` must > 0")
     return
   }
 

@@ -2,7 +2,8 @@ import UIKit
 import Eureka
 
 import JacKit
-fileprivate let jack = Jack.with(levelOfThisFile: .debug)
+fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
+
 
 class SvpVC: FormViewController {
 

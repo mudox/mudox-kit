@@ -12,8 +12,7 @@ import RxSwift
 import RxCocoa
 
 import JacKit
-
-fileprivate let jack = Jack.with(levelOfThisFile: .debug)
+fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
 
 class MainVC: FormViewController {
   var disposeBag = DisposeBag()

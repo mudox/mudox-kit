@@ -1,7 +1,7 @@
 import UIKit
 
 import JacKit
-fileprivate let jack = Jack.with(levelOfThisFile: .verbose)
+fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
 
 extension Mudoxive where Base: UIImage {
   /// Generate a image filled with a single color. Typically used for
@@ -19,7 +19,7 @@ extension Mudoxive where Base: UIImage {
     UIRectFill(CGRect(origin: .zero, size: size))
     
     guard let image = UIGraphicsGetImageFromCurrentImageContext(), let aCGImage = image.cgImage else {
-      jack.failure("failed, return a empty image")
+      Jack.failure("failed, return a empty image")
       return UIImage()
     }
     

@@ -1,7 +1,7 @@
 import Foundation
 
 import JacKit
-fileprivate let jack = Jack.with(fileLocalLevel: .verbose)
+fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
 
 private let _assetsBundleName = "mbp"
 
@@ -19,7 +19,7 @@ final class MBPResources {
     if let image = UIImage(named: "Check37", in: _assetsBundle, compatibleWith: nil) {
       return image
     } else {
-      jack.failure("Loading image `Check37` failed")
+      Jack.failure("Loading image `Check37` failed")
       return UIImage()
     }
   }
@@ -28,7 +28,7 @@ final class MBPResources {
     if let image = UIImage(named: "Cross37", in: _assetsBundle, compatibleWith: nil) {
       return image
     } else {
-      jack.failure("Loading image `Cross37` failed")
+      Jack.failure("Loading image `Cross37` failed")
       return UIImage()
     }
   }

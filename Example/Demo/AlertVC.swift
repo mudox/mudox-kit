@@ -8,7 +8,7 @@ import Eureka
 import MudoxKit
 
 import JacKit
-fileprivate let jack = Jack.with(levelOfThisFile: .debug)
+fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
 
 private struct ViewModel {
   // outputs
@@ -95,7 +95,7 @@ class AlertVC: FormViewController {
     }.onChange { [weak self] row in
       guard let ss = self else { return }
       if row.value == nil {
-        jack.failure("Should not be nil")
+        Jack.failure("Should not be nil")
       }
       ss.style.accept(row.value ?? .alert)
     }

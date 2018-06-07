@@ -9,7 +9,7 @@ import Foundation
 import MBProgressHUD
 
 import JacKit
-fileprivate let jack = Jack.with(fileLocalLevel: .verbose)
+fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
 
 /// Change MBProgressHUD view
 public typealias ChangeMBP = (MBProgressHUD) -> ()

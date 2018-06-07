@@ -8,8 +8,7 @@ import Eureka
 import MudoxKit
 
 import JacKit
-fileprivate let jack = Jack.with(levelOfThisFile: .verbose)
-
+fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
 
 class ImagePickerVC: FormViewController {
 
