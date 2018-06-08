@@ -47,7 +47,7 @@ public final class ActivityCenter {
 
   public static let shared = ActivityCenter()
 
-  init() {
+  private init() {
     networkActivity = _networkActivityRelay
       .asDriver()
       .distinctUntilChanged()
@@ -57,6 +57,14 @@ public final class ActivityCenter {
 
   private let _lock = NSRecursiveLock()
   private var _activities: [Activity: Int] = [:]
+  
+  
+  /// Internal method for testing purpose
+  func reset() {
+    _lock.lock()
+    _activities = [:]
+    _lock.unlock()
+  }
 
   // MARK: Report Activity Events
   

@@ -31,13 +31,18 @@ class ActivityCenterSpec: QuickSpec {
       var center: ActivityCenter!
 
       beforeEach {
-        center = ActivityCenter()
+        center = ActivityCenter.shared
+        center.reset()
       }
 
-      it("track network activities") {
+      fit("track network activities") {
         let a1 = Activity(identifier: "networkRequest", isNetworkActivity: true)
         let a2 = Activity(identifier: "anotherNetworkRequest", isNetworkActivity: true)
         let b = Activity(identifier: "nonNetworkRequest", isNetworkActivity: false)
+        
+        _ = center.networkActivity.drive(onNext: {
+          print("network active - \($0)")
+        })
 
         // a1 network task started
         a1.start()
@@ -64,7 +69,7 @@ class ActivityCenterSpec: QuickSpec {
         expect(center.networkActivity.asObservable()).first == false
       }
 
-      fit("monitor activity concurrency") {
+      it("monitor activity concurrency") {
         let a = Activity(identifier: "networkRequest", maxConcurrency: 1)
         expect{ () -> Void in
           a.start()
