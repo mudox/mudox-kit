@@ -7,35 +7,7 @@ import RxSwiftExt
 import JacKit
 fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
 
-
-public protocol ActivityType: Hashable {
-
-  /// Maximum count of instance allowed to run at the same time.
-  /// Default: 1
-  var maxConcurrency: Int { get }
-
-  /// Log out each events of this kind of tasks.
-  /// Used for debugging.
-  /// Default: false
-  var isLoggingEnbaled: Bool { get }
-
-  /// Keep UIApplication.shared.isNetworkActivityIndicatorVisible to true
-  /// when this kind of tasks are executing.
-  /// Default: false
-  var isNetworkActivity: Bool { get }
-
-}
-
-extension ActivityType {
-
-  public var maxConcurrency: Int { return 1 }
-
-  public var isLoggingEnbaled: Bool { return false }
-
-  public var isNetworkActivity: Bool { return false }
-}
-
-public final class ActivityCenter<Activity: ActivityType> {
+public final class ActivityCenter {
 
   public struct Event {
 
@@ -47,11 +19,35 @@ public final class ActivityCenter<Activity: ActivityType> {
       case end
     }
 
+    public static func start(_ activity: Activity) -> Event {
+      return Event(activity: activity, state: .start)
+    }
+    
+    public static func next(_ activity: Activity, element: Any?) -> Event {
+      return Event(activity: activity, state: .next(element))
+    }
+    
+    public static func succeed(_ activity: Activity) -> Event {
+      return Event(activity: activity, state: .succeed)
+    }
+    
+    public static func fail(_ activity: Activity, error: Error) -> Event {
+      return Event(activity: activity, state: .fail(error))
+    }
+    
+    public static func end(_ activity: Activity) -> Event {
+      return Event(activity: activity, state: .end)
+    }
+
     let activity: Activity
     let state: State
   }
-  
-  public init() {
+
+  // MARK: Singleton
+
+  public static let shared = ActivityCenter()
+
+  init() {
     networkActivity = _networkActivityRelay
       .asDriver()
       .distinctUntilChanged()
@@ -62,9 +58,11 @@ public final class ActivityCenter<Activity: ActivityType> {
   private let _lock = NSRecursiveLock()
   private var _activities: [Activity: Int] = [:]
 
+  // MARK: Report Activity Events
+  
   private let _eventRelay = PublishRelay<Event>()
 
-  private func _post(_ event: Event) {
+  public func addEvent(_ event: Event) {
     _lock.lock(); defer { _lock.unlock() }
 
     // log event if required
@@ -91,7 +89,6 @@ public final class ActivityCenter<Activity: ActivityType> {
     let isNetworkActive = _activities
       .filter { act, cnt in act.isNetworkActivity }
       .any { act, cnt in cnt > 0 }
-    jack.debug("network active: \(isNetworkActive)")
     _networkActivityRelay.accept(isNetworkActive)
 
     // count check
@@ -114,8 +111,8 @@ public final class ActivityCenter<Activity: ActivityType> {
     }
 
     if runningCount > maxCount {
-      jack.warn("""
-        \(runningCount) instances of \(activity) running at the same, only \(maxCount) instances
+      Jack.failure("""
+        \(runningCount) instances of \(activity) running at the same time, only \(maxCount) instances \
         is allowed.
         """)
     }
@@ -128,28 +125,6 @@ public final class ActivityCenter<Activity: ActivityType> {
   private let _networkActivityRelay = BehaviorRelay<Bool>(value: false)
 
   public let networkActivity: Driver<Bool>
-
-  // MARK: Record Events Manually
-
-  public func start(_ activity: Activity) {
-    _post(Event(activity: activity, state: .start))
-  }
-
-  public func next(_ element: Any?, _ activity: Activity) {
-    _post(Event(activity: activity, state: .next(element)))
-  }
-
-  public func succeed(_ activity: Activity) {
-    _post(Event(activity: activity, state: .succeed))
-  }
-
-  public func fail(_ error: Error, _ activity: Activity) {
-    _post(Event(activity: activity, state: .fail(error)))
-  }
-
-  public func end(_ activity: Activity) {
-    _post(Event(activity: activity, state: .end))
-  }
 
   // MARK: Handle Activities
 
@@ -190,6 +165,10 @@ public final class ActivityCenter<Activity: ActivityType> {
 
 }
 
+extension The {
+  public static var activityCenter: ActivityCenter { return ActivityCenter.shared }
+}
+
 extension ObservableType {
 
   /// Convenient operator to transform observable event into activity events and report them to the
@@ -199,23 +178,25 @@ extension ObservableType {
   ///   - activity: The activity to track.
   ///   - tracker: The activity tracker singleton to manage all activity events.
   /// - Returns: The receiver itself.
-  public func track<A: ActivityType>(_ activity: A, by tracker: ActivityCenter<A>) -> Observable<Self.E> {
+  public func trackActivity(_ activity: Activity) -> Observable<Self.E> {
+    let center = ActivityCenter.shared
+
     return asObservable()
       .do(
         onNext: {
-          tracker.next($0, activity)
+          center.addEvent(.next(activity, element: $0))
         },
         onError: {
-          tracker.fail($0, activity)
+          center.addEvent(.fail(activity, error: $0))
         },
         onCompleted: {
-          tracker.succeed(activity)
+          center.addEvent(.succeed(activity))
         },
         onSubscribe: {
-          tracker.start(activity)
+          center.addEvent(.start(activity))
         },
         onDispose: {
-          tracker.end(activity)
+          center.addEvent(.end(activity))
         }
       )
   }
