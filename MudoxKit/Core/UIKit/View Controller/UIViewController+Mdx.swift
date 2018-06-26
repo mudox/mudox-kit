@@ -1,7 +1,7 @@
 import UIKit
 import JacKit
 
-fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
+fileprivate let jack = Jack.fileScopeInstance().setLevel(.verbose)
 
 extension Mudoxive where Base: UIViewController {
 
@@ -21,6 +21,8 @@ extension Mudoxive where Base: UIViewController {
 
     if base.presentingViewController != nil {
       base.dismiss(animated: animated, completion: nil)
+    } else {
+      jack.warn("`base.presentingViewController` is nil")
     }
   }
   

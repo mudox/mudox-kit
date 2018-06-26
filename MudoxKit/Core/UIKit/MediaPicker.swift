@@ -4,7 +4,7 @@ import RxSwift
 import RxCocoa
 
 import JacKit
-fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
+fileprivate let jack = Jack.fileScopeInstance().setLevel(.verbose)
 
 public struct MediaPicker {
 
