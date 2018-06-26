@@ -1,7 +1,7 @@
 import Foundation
 
 import JacKit
-fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
+fileprivate let jack = Jack.fileScopeInstance().setLevel(.verbose)
 
 private let _assetsBundleName = "mbp"
 
@@ -33,9 +33,4 @@ final class MBPResources {
     }
   }
 
-  // MARK: - Colors
-
-  static let successColor = #colorLiteral(red: 0.205, green: 0.45, blue: 0.142, alpha: 1)
-  
-  static let failureColor = #colorLiteral(red: 0.8, green: 0.078, blue: 0.034, alpha: 1)
 }
