@@ -18,3 +18,15 @@ extension CGSize {
   }
   
 }
+
+extension CGRect {
+  
+  public static func square(size: CGFloat) -> CGRect {
+    return CGRect(origin: .zero, size: CGSize(width: size, height: size))
+  }
+  
+  public static func box(width: CGFloat, height: CGFloat) -> CGRect {
+    return CGRect(origin: .zero, size: CGSize(width: width, height: height))
+  }
+  
+}
