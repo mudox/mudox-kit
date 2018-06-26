@@ -14,12 +14,20 @@ public enum Info {
   public static var appBuild: String? {
     return The.mainBundle.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String
   }
-  
+
   public static var isDebug: Bool {
-    return The.app.mdx.isInDebugMode
+    #if DEBUG
+      return true
+    #else
+      return false
+    #endif
   }
   public static var isSimulator: Bool {
-    return The.app.mdx.isInSimulator
+    #if targetEnvironment(simulator)
+    return true
+    #else
+    return false
+    #endif
   }
   public static var isUITest: Bool {
     return The.process.environment["isUITest"] != nil
@@ -47,12 +55,12 @@ public enum Info {
   public static var isLowPowerModeEnabled: Bool {
     return The.process.isLowPowerModeEnabled
   }
-  
+
   @available(iOS 11.0, *)
   public static var thermalState: ProcessInfo.ThermalState {
     return The.process.thermalState
   }
-  
+
   public static var isReduceMotionEnabled: Bool {
     return UIAccessibilityIsReduceMotionEnabled()
   }
