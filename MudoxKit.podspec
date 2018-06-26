@@ -38,6 +38,12 @@ Pod::Spec.new do |s|
     core.dependency 'RxSwiftExt'
   end
 
+  s.subspec 'ActivityCenter' do |ss|
+    ss.source_files = 'MudoxKit/ActivityCenter/**/*.{swift,h,m}'
+    ss.dependency 'RxSwift'
+    ss.dependency 'RxCocoa'
+  end
+
   s.subspec 'MBProgressHUD' do |ss|
     ss.source_files = 'MudoxKit/MBProgressHUD/**/*.swift'
     ss.dependency 'MBProgressHUD'

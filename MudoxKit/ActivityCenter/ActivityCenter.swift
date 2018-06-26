@@ -2,7 +2,6 @@ import class UIKit.UIApplication
 
 import RxSwift
 import RxCocoa
-import RxSwiftExt
 
 import JacKit
 fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
@@ -22,19 +21,19 @@ public final class ActivityCenter {
     public static func start(_ activity: Activity) -> Event {
       return Event(activity: activity, state: .start)
     }
-    
+
     public static func next(_ activity: Activity, element: Any?) -> Event {
       return Event(activity: activity, state: .next(element))
     }
-    
+
     public static func succeed(_ activity: Activity) -> Event {
       return Event(activity: activity, state: .succeed)
     }
-    
+
     public static func fail(_ activity: Activity, error: Error) -> Event {
       return Event(activity: activity, state: .fail(error))
     }
-    
+
     public static func end(_ activity: Activity) -> Event {
       return Event(activity: activity, state: .end)
     }
@@ -45,7 +44,13 @@ public final class ActivityCenter {
 
   // MARK: Singleton
 
-  public static let shared = ActivityCenter()
+  public static let shared: ActivityCenter = {
+    let c = ActivityCenter()
+    _ = c.networkActivity
+      .skip(1) // skip initial `false` element
+      .drive(UIApplication.shared.rx.isNetworkActivityIndicatorVisible)
+    return c
+  }()
 
   private init() {
     networkActivity = _networkActivityRelay
@@ -57,8 +62,8 @@ public final class ActivityCenter {
 
   private let _lock = NSRecursiveLock()
   private var _activities: [Activity: Int] = [:]
-  
-  
+
+
   /// Internal method for testing purpose
   func reset() {
     _lock.lock()
@@ -67,7 +72,7 @@ public final class ActivityCenter {
   }
 
   // MARK: Report Activity Events
-  
+
   private let _eventRelay = PublishRelay<Event>()
 
   public func addEvent(_ event: Event) {
