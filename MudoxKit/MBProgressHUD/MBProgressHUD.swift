@@ -2,7 +2,7 @@ import UIKit
 import MBProgressHUD
 
 import JacKit
-fileprivate let jack = Jack.fileScopeInstance().setLevel(.verbose)
+fileprivate let jack = Jack()
 
 extension MBProgressHUDMode: HasEnumNames {
   public static let enumName = "MBProgressHUDMode"

@@ -5,7 +5,7 @@ import RxSwift
 import RxCocoa
 
 import JacKit
-fileprivate let jack = Jack.fileScopeInstance().setLevel(.verbose)
+fileprivate let jack = Jack()
 
 extension MBPProxy where Base: UIView {
 
@@ -39,29 +39,6 @@ extension MBPProxy where Base: UIView {
     execute(.info(title: title, message: message, mode: mode, apply: change))
   }
 
-  public func next(
-    title: String? = nil,
-    message: String? = nil,
-    mode: MBProgressHUDMode = .indeterminate,
-    apply change: ChangeMBP? = nil
-  )
-  {
-    execute(.info(title: title, message: message, mode: mode, apply: change))
-  }
-
-  public func blink(
-    title: String? = nil,
-    message: String? = nil,
-    apply change: ChangeMBP? = nil
-  )
-  {
-    let change: ChangeMBP = { hud in
-      change?(hud)
-      hud.hide(animated: true, afterDelay: 1)
-    }
-    execute(.info(title: title, message: message, mode: .text, apply: change))
-  }
-
   public func progress(
     _ progress: Double,
     apply change: ChangeMBP? = nil
@@ -80,14 +57,14 @@ extension MBPProxy where Base: UIView {
     execute(.success(title: title, message: message, hideIn: interval, apply: change))
   }
 
-  public func failure(
+  public func error(
     title: String? = nil,
     message: String? = nil,
     hideIn interval: TimeInterval = 1,
     apply change: ChangeMBP? = nil
   )
   {
-    execute(.failure(title: title, message: message, hideIn: interval, apply: change))
+    execute(.error(title: title, message: message, hideIn: interval, apply: change))
   }
   
   public func hide() {

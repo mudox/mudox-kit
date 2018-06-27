@@ -2,7 +2,7 @@ import Foundation
 import MBProgressHUD
 
 import JacKit
-fileprivate let jack = Jack.fileScopeInstance().setLevel(.debug)
+fileprivate let jack = Jack()
 
 /// Change MBProgressHUD view
 public typealias ChangeMBP = (MBProgressHUD) -> ()
@@ -18,6 +18,7 @@ private func _getHUD(
   -> MBProgressHUD?
 {
   guard let hud = MBProgressHUD(for: view) else {
+    let jack = Jack("JacKit.Jack.getHUD", level: .verbose)
     if warnIfNotExists {
       var text = "HUD view does not exist"
       if addIfNotExists {
@@ -91,7 +92,7 @@ public struct MBPCommand {
     }
   }
 
-  public static func start(
+  public static func begin(
     title: String? = nil,
     message: String? = nil,
     mode: MBProgressHUDMode = .indeterminate,
@@ -99,18 +100,22 @@ public struct MBPCommand {
   )
     -> MBPCommand
   {
-    return info(title: title, message: message, mode: mode, apply: change)
-  }
+    return MBPCommand.init { view in
+      // make sure hud is shown
+      let hud = _getHUD(from: view)!
 
-  public static func next(
-    title: String? = nil,
-    message: String? = nil,
-    mode: MBProgressHUDMode = .indeterminate,
-    apply change: ChangeMBP? = nil
-  )
-    -> MBPCommand
-  {
-    return info(title: title, message: message, mode: mode, apply: change)
+      // texts
+      hud.label.text = title
+      hud.detailsLabel.text = message
+
+      // progress and mode
+      hud.progress = 0
+      hud.mode = mode
+
+      // apply extra change if any
+      change?(hud)
+    }
+
   }
 
   public static func progress(
@@ -128,8 +133,10 @@ public struct MBPCommand {
 
       if hud.mode == .indeterminate
         || hud.mode == .customView
-        || hud.mode == .text {
-        jack.warn("Invalid MBProgressHUDMode (\(hud.mode.caseName)), the progress can not be shown")
+        || hud.mode == .text
+        {
+        jack.warn("invalid MBProgressHUDMode (\(hud.mode.caseName)), the progress can not be shown, set it to `.determinate`")
+        hud.mode = .determinate
       }
     }
   }
@@ -182,7 +189,7 @@ public struct MBPCommand {
   ///   - interval: Interval in which to hide the HUD.
   ///   - change: Extra modifications applied to the HUD.
   /// - Returns: The MBPCommand to change the HUD states.
-  public static func failure(
+  public static func error(
     title: String? = nil,
     message: String? = nil,
     hideIn interval: TimeInterval = 1,
