@@ -687,7 +687,6 @@
 		F104B412B6F09AC85E00D57826A13132 /* RxCocoa-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C7FE1E664F2AEED47790C5215F265E8 /* RxCocoa-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F1D1597FBFE35F4281D889813DD6B6FD /* NVActivityIndicatorAnimationCircleStrokeSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842925A98DF19F8716F4E15662CEC2BC /* NVActivityIndicatorAnimationCircleStrokeSpin.swift */; };
 		F33F7D46614EC87543EB3D7AFA75A5E1 /* RxNimble.swift in Sources */ = {isa = PBXBuildFile; fileRef = E803A71F036F4FE747351C2EB2FD692D /* RxNimble.swift */; };
-		F391BC139BA6B2DFECD3962D578F604E /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DBBEB3075B34154E472FB5D1D85CCF /* UIImage.swift */; };
 		F3CB30B0E82B34B400C6F521969284B1 /* UIAlertController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0FC771AFEA8499FF50B798B7B4F6FB5A /* UIAlertController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F3D96B32FB8CCF1DE076926230B661E9 /* Platform.Linux.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E1757B0AE3A6CB349F5EE81BC4BE0C /* Platform.Linux.swift */; };
 		F425D05E825AC74F048E95F95B1C894E /* UIDatePicker+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C49EC3202245035035463E0526BA055 /* UIDatePicker+Rx.swift */; };
@@ -1456,7 +1455,6 @@
 		917262BD38AC7038CE1AD718396ED459 /* CwlCatchException.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CwlCatchException.h; path = Carthage/Checkouts/CwlCatchException/Sources/CwlCatchExceptionSupport/include/CwlCatchException.h; sourceTree = "<group>"; };
 		91E3E5659DC1375E490B88A74B712C6F /* JacKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = JacKit.modulemap; sourceTree = "<group>"; };
 		9270C7263703C06BD6E21B3A69C8AF1F /* TestSchedulerVirtualTimeConverter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TestSchedulerVirtualTimeConverter.swift; path = RxTest/Schedulers/TestSchedulerVirtualTimeConverter.swift; sourceTree = "<group>"; };
-		92DBBEB3075B34154E472FB5D1D85CCF /* UIImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UIImage.swift; path = MudoxKit/Core/UIImage.swift; sourceTree = "<group>"; };
 		932F77F654B545010B4FF6A6A57DC1DE /* Helpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Source/Core/Helpers.swift; sourceTree = "<group>"; };
 		934F40F8294560B07ADED364DE6BBEEA /* CombineLatest+arity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CombineLatest+arity.swift"; path = "RxSwift/Observables/CombineLatest+arity.swift"; sourceTree = "<group>"; };
 		9363D3146940B5B5DBCB91B6DBDFDF76 /* Observable+Bind.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Observable+Bind.swift"; path = "RxCocoa/Common/Observable+Bind.swift"; sourceTree = "<group>"; };
@@ -2874,7 +2872,6 @@
 				2D0446B07513F02834D31B8D20BB18FF /* Mudoxive.swift */,
 				78AFF138C4AEE98641F41B41A504BFD1 /* RxOperators.swift */,
 				1FA80183D2C903BDB8A6A73B2D18625D /* The.swift */,
-				92DBBEB3075B34154E472FB5D1D85CCF /* UIImage.swift */,
 				CFEFF086C4435E50165BE8253594DF3F /* With.swift */,
 				BF3861F5EC60F58B3CF19D80E09B81A7 /* Swift */,
 				E9E97A9DDDD1C1DEB141DEE125CEF7AC /* UIKit */,
@@ -4165,7 +4162,6 @@
 				F009E14C3C5DCC62DC54F89FC805C70F /* UIApplication.m in Sources */,
 				6502AE8FD7343A0B55611956FA417D1A /* UIBarButtonItem.swift in Sources */,
 				288CD896E1719298E02414A1CD43537C /* UIDevice.m in Sources */,
-				F391BC139BA6B2DFECD3962D578F604E /* UIImage.swift in Sources */,
 				98A678B1DC6CC2CFD20BFF5EC735B7F7 /* UITextField.m in Sources */,
 				37A0AF76CDF02015D286AD77B2EBB90E /* UITextView.m in Sources */,
 				8362E956E4A065A306CB23BE1F7D980E /* UIView+MBP.m in Sources */,

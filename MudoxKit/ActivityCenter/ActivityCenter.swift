@@ -4,34 +4,34 @@ import RxSwift
 import RxCocoa
 
 import JacKit
-fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
+fileprivate let jack = Jack()
 
 public final class ActivityCenter {
 
   public struct Event {
 
     public enum State {
-      case start
+      case begin
       case next(Any?)
-      case succeed
-      case fail(Error)
+      case success
+      case error(Error)
       case end
     }
 
-    public static func start(_ activity: Activity) -> Event {
-      return Event(activity: activity, state: .start)
+    public static func begin(_ activity: Activity) -> Event {
+      return Event(activity: activity, state: .begin)
     }
 
     public static func next(_ activity: Activity, element: Any?) -> Event {
       return Event(activity: activity, state: .next(element))
     }
 
-    public static func succeed(_ activity: Activity) -> Event {
-      return Event(activity: activity, state: .succeed)
+    public static func success(_ activity: Activity, element: Any?) -> Event {
+      return Event(activity: activity, state: .success)
     }
 
-    public static func fail(_ activity: Activity, error: Error) -> Event {
-      return Event(activity: activity, state: .fail(error))
+    public static func error(_ activity: Activity, error: Error) -> Event {
+      return Event(activity: activity, state: .error(error))
     }
 
     public static func end(_ activity: Activity) -> Event {
@@ -42,13 +42,13 @@ public final class ActivityCenter {
     let state: State
   }
 
-  // MARK: Singleton
+  // MARK: - Singleton: ActivityCenter.shared
 
   public static let shared: ActivityCenter = {
     let c = ActivityCenter()
     _ = c.networkActivity
       .skip(1) // skip initial `false` element
-      .drive(UIApplication.shared.rx.isNetworkActivityIndicatorVisible)
+    .drive(UIApplication.shared.rx.isNetworkActivityIndicatorVisible)
     return c
   }()
 
@@ -58,7 +58,7 @@ public final class ActivityCenter {
       .distinctUntilChanged()
   }
 
-  // MARK: Private Members
+  // MARK: - Private Members
 
   private let _lock = NSRecursiveLock()
   private var _activities: [Activity: Int] = [:]
@@ -71,7 +71,7 @@ public final class ActivityCenter {
     _lock.unlock()
   }
 
-  // MARK: Report Activity Events
+  // MARK: - Report Activity Events
 
   private let _eventRelay = PublishRelay<Event>()
 
@@ -80,12 +80,12 @@ public final class ActivityCenter {
 
     // log event if required
     if event.activity.isLoggingEnbaled {
-      Jack(scope: "ActivityTracker").verbose("\(event)")
+      Jack("ActivityTracker").verbose("\(event)")
     }
 
     // count running activity
     switch event.state {
-    case .start:
+    case .begin:
       _activities[event.activity, default: 0] += 1
     case .end:
       let count = _activities[event.activity, default: 0]
@@ -133,13 +133,13 @@ public final class ActivityCenter {
     _eventRelay.accept(event)
   }
 
-  // MARK: Network Activity Monitoring
+  // MARK: - Network Activity Monitoring
 
   private let _networkActivityRelay = BehaviorRelay<Bool>(value: false)
 
   public let networkActivity: Driver<Bool>
 
-  // MARK: Handle Activities
+  // MARK: - Handle Activities
 
   public func states(of activity: Activity) -> Observable<Event.State> {
     return mergedStates(of: [activity])
@@ -160,9 +160,9 @@ public final class ActivityCenter {
     return states(of: act)
       .map {
         switch $0 {
-        case .start, .next:
+        case .begin, .next:
           return true
-        case .succeed, .fail, .end:
+        case .success, .error, .end:
           return false
         }
       }
@@ -178,40 +178,8 @@ public final class ActivityCenter {
 
 }
 
+// MARK: - The.activityCenter
+
 extension The {
   public static var activityCenter: ActivityCenter { return ActivityCenter.shared }
-}
-
-extension ObservableType {
-
-  /// Convenient operator to transform observable event into activity events and report them to the
-  /// activity center.
-  ///
-  /// - Parameters:
-  ///   - activity: The activity to track.
-  ///   - tracker: The activity tracker singleton to manage all activity events.
-  /// - Returns: The receiver itself.
-  public func trackActivity(_ activity: Activity) -> Observable<Self.E> {
-    let center = ActivityCenter.shared
-
-    return asObservable()
-      .do(
-        onNext: {
-          center.addEvent(.next(activity, element: $0))
-        },
-        onError: {
-          center.addEvent(.fail(activity, error: $0))
-        },
-        onCompleted: {
-          center.addEvent(.succeed(activity))
-        },
-        onSubscribe: {
-          center.addEvent(.start(activity))
-        },
-        onDispose: {
-          center.addEvent(.end(activity))
-        }
-      )
-  }
-
 }

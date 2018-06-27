@@ -2,7 +2,7 @@ import Foundation
 
 
 import JacKit
-fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
+fileprivate let jack = Jack()
 
 fileprivate var _allIdentifiers: Set<String> = []
 
@@ -63,22 +63,22 @@ extension Activity: Hashable {
 
 // MARK: - Report Events
 extension Activity {
-  public func start() {
-    ActivityCenter.shared.addEvent(.start(self))
+  public func begin() {
+    ActivityCenter.shared.addEvent(.begin(self))
   }
-  
+
   public func next(_ element: Any?) {
     ActivityCenter.shared.addEvent(.next(self, element: element))
   }
-  
-  public func succeed() {
-    ActivityCenter.shared.addEvent(.succeed(self))
+
+  public func success(_ element: Any?) {
+    ActivityCenter.shared.addEvent(.success(self, element: element))
   }
-  
-  public func fail(_ error: Error) {
-    ActivityCenter.shared.addEvent(.fail(self, error: error))
+
+  public func error(_ error: Error) {
+    ActivityCenter.shared.addEvent(.error(self, error: error))
   }
-  
+
   public func end() {
     ActivityCenter.shared.addEvent(.end(self))
   }

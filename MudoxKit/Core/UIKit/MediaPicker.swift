@@ -4,7 +4,7 @@ import RxSwift
 import RxCocoa
 
 import JacKit
-fileprivate let jack = Jack.fileScopeInstance().setLevel(.verbose)
+fileprivate let jack = Jack()
 
 public struct MediaPicker {
 
@@ -101,11 +101,5 @@ class ImagePickerDelegate: NSObject, UIImagePickerControllerDelegate, UINavigati
       imageSubject.onError(error)
     }
   }
-
-  #if DEBUG
-    deinit {
-      print("delegate: bye")
-    }
-  #endif
 
 }

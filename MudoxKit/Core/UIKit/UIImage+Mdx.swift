@@ -1,7 +1,7 @@
 import UIKit
 
 import JacKit
-fileprivate let jack = Jack.fileScopeInstance().setLevel(.verbose)
+fileprivate let jack = Jack()
 
 extension Mudoxive where Base: UIImage {
   /// Generate a image filled with a single color. Typically used for

@@ -1,7 +1,7 @@
 import UIKit
 
 import JacKit
-fileprivate let jack = Jack.fileScopeInstance().setLevel(.verbose)
+fileprivate let jack = Jack()
 
 extension Mudoxive where Base: UIApplication {
 
@@ -19,7 +19,7 @@ extension Mudoxive where Base: UIApplication {
   public func tracksAppStates() {
     _appStates.forEach { item in
       The.notificationCenter.addObserver(forName: item.key, object: nil, queue: nil, using: { _ in
-        Jack.appScopeInstance().debug(item.value)
+        Jack(Info.appName).debug(item.value)
       })
     }
   }
@@ -41,6 +41,6 @@ extension Mudoxive where Base: UIApplication {
         - Name       :   \(Info.systemName)
         - Version    :   \(Info.systemVersion)
       """
-    Jack.appScopeInstance().info(lines)
+    Jack(Info.appName).info(lines)
   }
 }

@@ -1,9 +1,7 @@
 import Foundation
 
 import JacKit
-fileprivate let jack = Jack.fileScopeInstance().setLevel(.verbose)
-
-
+fileprivate let jack = Jack()
 
 public enum CommonError: Error {
   case cancelled

@@ -2,7 +2,7 @@ import UIKit
 import RxSwift
 
 import JacKit
-fileprivate let jack = Jack.fileScopeInstance().setLevel(.verbose)
+fileprivate let jack = Jack()
 
 public enum UIAlertControllerError: Error {
   case layoutParseFailure
