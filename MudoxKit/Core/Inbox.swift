@@ -5,3 +5,10 @@ extension Bool {
     self = !self
   }
 }
+
+public enum TaskState<Step, Result> {
+  case begin(Step)
+  case progress(Double)
+  case success(Result)
+  case error(Error)
+}
