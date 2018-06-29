@@ -62,7 +62,7 @@ extension ObservableType where E: ProgressResultType {
 }
 
 extension SharedSequence where S == DriverSharingStrategy, Element: ProgressResultType {
-
+  
   public func filterProgress() -> Driver<Double> {
     return flatMap ({ progressOrResult -> Driver<Double> in
       if let progress = progressOrResult.progress {
@@ -72,7 +72,7 @@ extension SharedSequence where S == DriverSharingStrategy, Element: ProgressResu
       }
     })
   }
-
+  
   public func filterResult() -> Driver<E.ResultType> {
     return flatMap ({ progressOrResult -> Driver<E.ResultType> in
       if let result = progressOrResult.result {
@@ -82,5 +82,29 @@ extension SharedSequence where S == DriverSharingStrategy, Element: ProgressResu
       }
     })
   }
+  
+}
 
+extension SharedSequence where S == SignalSharingStrategy, Element: ProgressResultType {
+  
+  public func filterProgress() -> Signal<Double> {
+    return flatMap ({ progressOrResult -> Signal<Double> in
+      if let progress = progressOrResult.progress {
+        return .just(progress)
+      } else {
+        return .empty()
+      }
+    })
+  }
+  
+  public func filterResult() -> Signal<E.ResultType> {
+    return flatMap ({ progressOrResult -> Signal<E.ResultType> in
+      if let result = progressOrResult.result {
+        return .just(result)
+      } else {
+        return .empty()
+      }
+    })
+  }
+  
 }

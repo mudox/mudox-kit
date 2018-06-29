@@ -1,5 +1,3 @@
-import class UIKit.UIApplication
-
 import RxSwift
 import RxCocoa
 
@@ -10,26 +8,30 @@ extension ActivityCenter {
   
   // MARK: All events of given activities
 
-  private func _state(of activities: [Activity]) -> Observable<Activity.State> {
+  private func _state(of activities: [Activity]) -> Signal<Activity.State> {
     return eventRelay
-      .filterMap ({
-        if activities.contains($0.activity) {
-          return .map($0.state)
+      .flatMap ({ event -> Signal<Activity.State> in
+        if activities.contains(event.activity) {
+          return .just(event.state)
         } else {
-          return .ignore
+          return .empty()
         }
+      })
+      .asSignal(onErrorRecover: { error in
+        jack.error("ActivityCenter.eventRelay emits an error: \(error), activity events dispatching is broken")
+        return .empty()
       })
   }
 
-  public func state(of activities: Activity...) -> Observable<Activity.State> {
+  public func state(of activities: Activity...) -> Signal<Activity.State> {
     return _state(of: activities)
   }
 
   // MARK: Begin event of given activities
   
-  private func _begin(of activities: [Activity]) -> Observable<Void> {
+  private func _begin(of activities: [Activity]) -> Signal<Void> {
     return _state(of: activities)
-      .flatMap { state -> Observable<Void> in
+      .flatMap { state -> Signal<Void> in
         switch state {
         case .begin:
           return .just(())
@@ -39,13 +41,13 @@ extension ActivityCenter {
     }
   }
 
-  public func begin(of activities: Activity...) -> Observable<Void> {
+  public func begin(of activities: Activity...) -> Signal<Void> {
     return _begin(of: activities)
   }
 
-  private func _next(of activities: [Activity]) -> Observable<Any?> {
+  private func _next(of activities: [Activity]) -> Signal<Any?> {
     return _state(of: activities)
-      .flatMap({ state -> Observable<Any?> in
+      .flatMap({ state -> Signal<Any?> in
         switch state {
         case .next(let value):
           return .just(value)
@@ -57,13 +59,13 @@ extension ActivityCenter {
 
   // MARK: Next event of activities
   
-  public func next(of activities: Activity...) -> Observable<Any?> {
+  public func next(of activities: Activity...) -> Signal<Any?> {
     return _next(of: activities)
   }
 
-  public func next<T>(_ type: T.Type, of activities: Activity...) -> Observable<T> {
+  public func next<T>(_ type: T.Type, of activities: Activity...) -> Signal<T> {
     return _next(of: activities)
-      .flatMap({ anyOrNil -> Observable<T> in
+      .flatMap({ anyOrNil -> Signal<T> in
         if let value = anyOrNil as? T {
           return .just(value)
         } else {
@@ -75,9 +77,9 @@ extension ActivityCenter {
 
   // MARK: Complete event of given activities
   
-  private func _complete(of activities: [Activity]) -> Observable<Void> {
+  private func _complete(of activities: [Activity]) -> Signal<Void> {
     return _state(of: activities)
-      .flatMap { state -> Observable<Void> in
+      .flatMap { state -> Signal<Void> in
         switch state {
         case .complete:
           return .just(())
@@ -87,15 +89,15 @@ extension ActivityCenter {
     }
   }
   
-  public func complete(of activities: Activity...) -> Observable<Void> {
+  public func complete(of activities: Activity...) -> Signal<Void> {
     return _complete(of: activities)
   }
   
   // MARK: Activity.Event event of given activities
 
-  private func _error(of activities: [Activity]) -> Observable<Swift.Error> {
+  private func _error(of activities: [Activity]) -> Signal<Swift.Error> {
     return _state(of: activities)
-      .flatMap { state -> Observable<Swift.Error> in
+      .flatMap { state -> Signal<Swift.Error> in
         switch state {
         case .error(let error):
           return .just(error)
@@ -105,13 +107,13 @@ extension ActivityCenter {
     }
   }
 
-  public func error(of activities: Activity...) -> Observable<Swift.Error> {
+  public func error(of activities: Activity...) -> Signal<Swift.Error> {
     return _error(of: activities)
   }
 
-  public func error<T: Swift.Error>(_ type: T.Type, of activities: Activity...) -> Observable<T> {
+  public func error<T: Swift.Error>(_ type: T.Type, of activities: Activity...) -> Signal<T> {
     return _error(of: activities)
-      .flatMap({ error -> Observable<T> in
+      .flatMap({ error -> Signal<T> in
         if let error = error as? T {
           return .just(error)
         } else {
@@ -123,23 +125,27 @@ extension ActivityCenter {
   
   // MARK: Exectuting state
 
-  public func executing(of act: Activity) -> Observable<Bool> {
+  public func executing(of act: Activity) -> Driver<Bool> {
     return state(of: act)
       .map {
         switch $0 {
-        case .begin:
-          return true
-        default:
+        case .end:
           return false
+        default:
+          return true
         }
       }
       .distinctUntilChanged()
       .startWith(false)
+      .asDriver(onErrorRecover: { error in
+        jack.error("should not error out")
+        return .empty()
+      })
   }
 
-  public func combinedExecuting(of activities: [Activity]) -> Observable<Bool> {
+  public func combinedExecuting(of activities: [Activity]) -> Driver<Bool> {
     let e = activities.map(executing)
-    return Observable.combineLatest(e)
+    return Driver.combineLatest(e)
       .map { $0.any { $0 } }
   }
 
