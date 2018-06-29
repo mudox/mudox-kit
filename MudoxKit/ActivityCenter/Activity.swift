@@ -36,6 +36,7 @@ public struct Activity {
     self.isLoggingEnbaled = isLoggingEnbaled
     self.isNetworkActivity = isNetworkActivity
 
+    // Check uniqueness
     if !_allIdentifiers.insert(identifier).inserted {
       Jack.failure("""
         activity identifier "\(identifier)" has already been used, double check to \
@@ -44,6 +45,18 @@ public struct Activity {
     }
 
     self.identifier = identifier
+  }
+
+}
+
+// MARK: - Description
+
+extension Activity: CustomStringConvertible {
+  
+  public var description: String {
+    return """
+      Activity.\(identifier) C:\(maxConcurrency) N:\(isNetworkActivity)
+      """
   }
 
 }
@@ -61,25 +74,27 @@ extension Activity: Hashable {
 
 }
 
-// MARK: - Report Events
+// MARK: - Report Activity.Events
 extension Activity {
+
   public func begin() {
-    ActivityCenter.shared.addEvent(.begin(self))
+    ActivityCenter.shared.post(.begin(self))
   }
 
   public func next(_ element: Any?) {
-    ActivityCenter.shared.addEvent(.next(self, element: element))
-  }
-
-  public func success(_ element: Any?) {
-    ActivityCenter.shared.addEvent(.success(self, element: element))
+    ActivityCenter.shared.post(.next(self, element: element))
   }
 
   public func error(_ error: Error) {
-    ActivityCenter.shared.addEvent(.error(self, error: error))
+    ActivityCenter.shared.post(.error(self, error: error))
+  }
+
+  public func complete() {
+    ActivityCenter.shared.post(.complete(self))
   }
 
   public func end() {
-    ActivityCenter.shared.addEvent(.end(self))
+    ActivityCenter.shared.post(.end(self))
   }
+
 }

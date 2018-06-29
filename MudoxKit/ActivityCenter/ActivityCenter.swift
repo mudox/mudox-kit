@@ -8,41 +8,7 @@ fileprivate let jack = Jack()
 
 public final class ActivityCenter {
 
-  public struct Event {
-
-    public enum State {
-      case begin
-      case next(Any?)
-      case success
-      case error(Error)
-      case end
-    }
-
-    public static func begin(_ activity: Activity) -> Event {
-      return Event(activity: activity, state: .begin)
-    }
-
-    public static func next(_ activity: Activity, element: Any?) -> Event {
-      return Event(activity: activity, state: .next(element))
-    }
-
-    public static func success(_ activity: Activity, element: Any?) -> Event {
-      return Event(activity: activity, state: .success)
-    }
-
-    public static func error(_ activity: Activity, error: Error) -> Event {
-      return Event(activity: activity, state: .error(error))
-    }
-
-    public static func end(_ activity: Activity) -> Event {
-      return Event(activity: activity, state: .end)
-    }
-
-    let activity: Activity
-    let state: State
-  }
-
-  // MARK: - Singleton: ActivityCenter.shared
+  // MARK: - ActivityCenter.shared
 
   public static let shared: ActivityCenter = {
     let c = ActivityCenter()
@@ -58,7 +24,7 @@ public final class ActivityCenter {
       .distinctUntilChanged()
   }
 
-  // MARK: - Private Members
+  // MARK: - Manage Activities
 
   private let _lock = NSRecursiveLock()
   private var _activities: [Activity: Int] = [:]
@@ -73,14 +39,14 @@ public final class ActivityCenter {
 
   // MARK: - Report Activity Events
 
-  private let _eventRelay = PublishRelay<Event>()
+  let eventRelay = PublishRelay<Activity.Event>()
 
-  public func addEvent(_ event: Event) {
+  public func post(_ event: Activity.Event) {
     _lock.lock(); defer { _lock.unlock() }
 
     // log event if required
     if event.activity.isLoggingEnbaled {
-      Jack("ActivityTracker").verbose("\(event)")
+      Jack("ActivityCenter").verbose("\(event)")
     }
 
     // count running activity
@@ -130,7 +96,7 @@ public final class ActivityCenter {
         """)
     }
 
-    _eventRelay.accept(event)
+    eventRelay.accept(event)
   }
 
   // MARK: - Network Activity Monitoring
@@ -138,43 +104,6 @@ public final class ActivityCenter {
   private let _networkActivityRelay = BehaviorRelay<Bool>(value: false)
 
   public let networkActivity: Driver<Bool>
-
-  // MARK: - Handle Activities
-
-  public func states(of activity: Activity) -> Observable<Event.State> {
-    return mergedStates(of: [activity])
-  }
-
-  public func mergedStates(of activities: [Activity]) -> Observable<Event.State> {
-    return _eventRelay
-      .filterMap ({
-        if activities.contains($0.activity) {
-          return .map($0.state)
-        } else {
-          return .ignore
-        }
-      })
-  }
-
-  public func executing(of act: Activity) -> Observable<Bool> {
-    return states(of: act)
-      .map {
-        switch $0 {
-        case .begin, .next:
-          return true
-        case .success, .error, .end:
-          return false
-        }
-      }
-      .distinctUntilChanged()
-      .startWith(false)
-  }
-
-  public func combinedExecuting(of activities: [Activity]) -> Observable<Bool> {
-    let e = activities.map(executing)
-    return Observable.combineLatest(e)
-      .map { $0.any { $0 } }
-  }
 
 }
 

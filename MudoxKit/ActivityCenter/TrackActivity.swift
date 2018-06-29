@@ -13,23 +13,21 @@ extension ObservableType {
   ///   - tracker: The activity tracker singleton to manage all activity events.
   /// - Returns: The receiver itself.
   public func trackActivity(_ activity: Activity) -> Observable<Self.E> {
-    let center = ActivityCenter.shared
-
     return self.do(
       onNext: {
-        center.addEvent(.next(activity, element: $0))
+        activity.next($0)
       },
       onError: {
-        center.addEvent(.error(activity, error: $0))
+        activity.error($0)
       },
       onCompleted: {
-        center.addEvent(.success(activity, element: nil))
+        activity.complete()
       },
       onSubscribe: {
-        center.addEvent(.begin(activity))
+        activity.begin()
       },
       onDispose: {
-        center.addEvent(.end(activity))
+        activity.end()
       }
     )
   }
@@ -48,20 +46,49 @@ extension PrimitiveSequence where Trait == SingleTrait {
   ///   - tracker: The activity tracker singleton to manage all activity events.
   /// - Returns: The receiver itself.
   public func trackActivity(_ activity: Activity) -> Single<Element> {
-    let center = ActivityCenter.shared
-
     return self.do(
       onSuccess: {
-        center.addEvent(.success(activity, element: $0))
+        activity.next($0)
       },
       onError: {
-        center.addEvent(.error(activity, error: $0))
+        activity.error($0)
       },
       onSubscribe: {
-        center.addEvent(.begin(activity))
+        activity.begin()
       },
       onDispose: {
-        center.addEvent(.end(activity))
+        activity.end()
+      }
+    )
+  }
+
+}
+
+
+// MARK: - Driver.trackActivity
+
+extension SharedSequence where S == DriverSharingStrategy {
+
+  /// Convenient operator to transform `SingleEvent` event into activity events and report them to the
+  /// activity center.
+  ///
+  /// - Parameters:
+  ///   - activity: The activity to track.
+  ///   - tracker: The activity tracker singleton to manage all activity events.
+  /// - Returns: The receiver itself.
+  public func trackActivity(_ activity: Activity) -> Driver<Element> {
+    return self.do(
+      onNext: {
+        activity.next($0)
+      },
+      onCompleted: {
+        activity.complete()
+      },
+      onSubscribe: {
+        activity.begin()
+      },
+      onDispose: {
+        activity.end()
       }
     )
   }
