@@ -51,6 +51,12 @@ public struct MBPCommand {
 
   // MARK: - Commands
 
+  /// Command to hide the HUD.
+  ///
+  /// - Parameters:
+  ///   - animated: Hide with aniamtion or not.
+  ///   - interval: Hiding animation duration.
+  /// - Returns: The `MBPCommand` to change the HUD states.
   public static func hide(
     animated: Bool = false,
     afterDelay interval: TimeInterval = 0
@@ -63,6 +69,15 @@ public struct MBPCommand {
     }
   }
 
+  /// Command to show an informative HUD for a while.
+  ///
+  /// - Parameters:
+  ///   - title: Title string.
+  ///   - message: Message String.
+  ///   - mode: `MBProgressHUD` mode.
+  ///   - interval: Interval in which to hide the HUD.
+  ///   - change: Extra modifications applied to the HUD.
+  /// - Returns: The `MBPCommand` to change the HUD states.
   public static func info(
     title: String? = nil,
     message: String? = nil,
@@ -92,6 +107,14 @@ public struct MBPCommand {
     }
   }
 
+  /// Command to show an HUD at the beginning of a process.
+  ///
+  /// - Parameters:
+  ///   - title: Title string.
+  ///   - message: Message String.
+  ///   - mode: `MBProgressHUD` mode.
+  ///   - change: Extra modifications applied to the HUD.
+  /// - Returns: The `MBPCommand` to change the HUD states.
   public static func begin(
     title: String? = nil,
     message: String? = nil,
@@ -118,6 +141,12 @@ public struct MBPCommand {
 
   }
 
+  /// Command to let the HUD show a progress indicator or update the progress display.
+  ///
+  /// - Parameters:
+  ///   - progress: The progress double value (0.0~1.0).
+  ///   - change: Extra modifications applied to the HUD.
+  /// - Returns: The `MBPCommand` to change the HUD states.
   public static func progress(
     _ progress: Double,
     apply change: ChangeMBP? = nil
@@ -141,7 +170,7 @@ public struct MBPCommand {
     }
   }
 
-  /// Predefined appearance for success result.
+  /// Command to show the HUD for success cases.
   ///
   /// - Parameters:
   ///   - title: Title string.
@@ -181,7 +210,7 @@ public struct MBPCommand {
     }
   }
 
-  /// Predefined appearance for failure result.
+  /// Command to show the HUD for failure cases.
   ///
   /// - Parameters:
   ///   - title: Title string.
