@@ -18,7 +18,7 @@ public struct Activity {
   /// Log out each events of this kind of tasks.
   /// Used for debugging.
   /// Default: false
-  public let isLoggingEnbaled: Bool
+  public let isLoggingEnabled: Bool
 
   /// Keep UIApplication.shared.isNetworkActivityIndicatorVisible to true
   /// when this kind of tasks are executing.
@@ -29,11 +29,11 @@ public struct Activity {
     identifier: String,
     isNetworkActivity: Bool = false,
     maxConcurrency: Int = 1,
-    isLoggingEnbaled: Bool = false
+    isLoggingEnabled: Bool = false
   )
   {
     self.maxConcurrency = maxConcurrency
-    self.isLoggingEnbaled = isLoggingEnbaled
+    self.isLoggingEnabled = isLoggingEnabled
     self.isNetworkActivity = isNetworkActivity
 
     // Check uniqueness

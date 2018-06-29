@@ -6,12 +6,6 @@ import RxCocoa
 import JacKit
 fileprivate let jack = Jack()
 
-extension Bool {
-  public mutating func toggle() {
-    self = !self
-  }
-}
-
 public enum TaskState<Result> {
   case begin
   case progress(Double)

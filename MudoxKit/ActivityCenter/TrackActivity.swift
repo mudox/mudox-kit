@@ -1,7 +1,7 @@
 import RxSwift
 import RxCocoa
 
-// MARK: - Observable.trackActivity
+// MARK: Observable.trackActivity
 
 extension ObservableType {
 

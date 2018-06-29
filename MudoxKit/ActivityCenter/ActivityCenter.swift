@@ -45,7 +45,7 @@ public final class ActivityCenter {
     _lock.lock(); defer { _lock.unlock() }
 
     // log event if required
-    if event.activity.isLoggingEnbaled {
+    if event.activity.isLoggingEnabled {
       Jack("ActivityCenter").verbose("\(event)")
     }
 
