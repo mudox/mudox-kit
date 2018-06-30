@@ -19,13 +19,14 @@ extension Mudoxive where Base: UIApplication {
   public func tracksAppStates() {
     _appStates.forEach { item in
       The.notificationCenter.addObserver(forName: item.key, object: nil, queue: nil, using: { _ in
-        Jack(Info.appName).debug(item.value)
+        Jack(Info.appName).debug(item.value, options: [.noLocation])
       })
     }
   }
 
   public func dumpInfo() {
     let lines = """
+      🚀 \(Info.appName)
       [App]
         - Name       :   \(Info.appName)
         - ID         :   \(Info.appBundleID ?? "N/A")
@@ -40,7 +41,7 @@ extension Mudoxive where Base: UIApplication {
       [System]
         - Name       :   \(Info.systemName)
         - Version    :   \(Info.systemVersion)
-      """
-    Jack(Info.appName).info(lines)
+      """ + "\n"
+    Jack(Info.appName).info(lines, options: .messageOnly)
   }
 }
