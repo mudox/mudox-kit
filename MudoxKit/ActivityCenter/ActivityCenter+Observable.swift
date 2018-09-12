@@ -69,7 +69,7 @@ extension ActivityCenter {
         if let value = anyOrNil as? T {
           return .just(value)
         } else {
-          jack.debug("filter out element of unmatched type: \(anyOrNil)")
+          jack.debug("filter out element of unmatched type: \(anyOrNil ??? "nil")")
           return .empty()
         }
       })

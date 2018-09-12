@@ -35,7 +35,7 @@ extension Activity {
       case .end:
         return "end"
       case .next(let value):
-        return "next(\(value))"
+        return "next(\(value ??? "nil"))"
       }
     }
 
