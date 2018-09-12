@@ -8,7 +8,7 @@ import RxCocoa
 ///   - type: Target type.
 /// - Returns: The optinal value if casting succeeded.
 /// - Throws: `CommonError.casting`
-func cast<T>(_ object: Any?, to type: T.Type) throws -> T {
+public func cast<T>(_ object: Any?, to type: T.Type) throws -> T {
   guard let result = object as? T else {
     throw CommonError.casting(object, to: type)
   }
@@ -23,7 +23,7 @@ func cast<T>(_ object: Any?, to type: T.Type) throws -> T {
 ///   - type: Target type.
 /// - Returns: The optinal value if casting succeeded.
 /// - Throws: `CommonError.casting`
-func cast<T>(_ object: Any?, to type: Optional<T>.Type) throws -> Optional<T> {
+public func cast<T>(_ object: Any?, to type: Optional<T>.Type) throws -> Optional<T> {
   if NSNull().isEqual(object) {
     return nil
   }
