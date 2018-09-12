@@ -6,7 +6,7 @@ fileprivate let jack = Jack()
 
 public enum UIAlertControllerError: Error {
   case layoutParseFailure
-  case noRootViewController
+  case noPresentingViewController
 }
 
 extension Mudoxive where Base: UIAlertController {
@@ -46,7 +46,7 @@ extension Mudoxive where Base: UIAlertController {
       }
 
       guard let sourceViewController = sourceViewController ?? The.mainWindow.rootViewController else {
-        single(.error(UIAlertControllerError.noRootViewController))
+        single(.error(UIAlertControllerError.noPresentingViewController))
         return Disposables.create()
       }
       sourceViewController.present(alert, animated: true, completion: nil)
