@@ -19,19 +19,19 @@ public struct MediaPicker {
   ///   - configure: Put custom configuration to the picker controller in it if any.
   ///     Setting the __delegate__ property in this block has no effect.
   /// - Returns: `Single<UIImage>`.
-  public static func image(
+  public static func singleImageSelected(
     from sourceType: UIImagePickerControllerSourceType,
-    presenter: UIViewController? = nil,
+    sourceViewController: UIViewController,
     animated: Bool = true,
     configure: ((UIImagePickerController) throws -> Void)? = nil
   )
     -> Single<UIImage>
   {
-    // precondition: must have a presenting view controller
-    guard let presenter = presenter ?? The.rootViewController else {
-      return Single.error(CommonError.error("no presenting view controller"))
-    }
-
+    /*
+     *
+     * Step 1 - Create and configure a UIImagePickerController
+     *
+     */
     let controller = UIImagePickerController()
     controller.sourceType = sourceType
 
@@ -45,22 +45,26 @@ public struct MediaPicker {
       Jack.failure("user should not set the delegate property in the `configure` closure")
     }
 
-    var delegate: ImagePickerDelegate? = ImagePickerDelegate(for: controller)
+    /*
+     *
+     * Step 2 - Create delegate and assign it to the controller
+     *
+     */
+    let delegate = ImagePickerDelegate(for: controller)
     controller.delegate = delegate
 
-    presenter.present(controller, animated: animated)
+    /*
+     *
+     * Step 3 - Present the controller
+     *
+     */
+    sourceViewController.present(controller, animated: animated)
 
-    // The `.take(1)` operator here
-    //   + Completes the sequence on first element (UIImage), which triggers the execution of the disposal
-    //     block in the `.do` operator, which, in turn,
-    //       - release the strongly hold delegate object.
-    //       - dismiss the picker controller.
-    //   + Satisfies the requirement from `.asSingle()` below.
-    return delegate!.imageSubject
+    return delegate.imageSubject
       .take(1)
       .asSingle()
       .do(onDispose: { [weak controller] in
-        delegate = nil // make the closure strongly retain the delegate object
+        delegate.retainSelf = nil
         controller?.mdx.dismiss(animated: animated)
       })
   }
@@ -72,9 +76,13 @@ class ImagePickerDelegate: NSObject, UIImagePickerControllerDelegate, UINavigati
   weak var controller: UIImagePickerController!
 
   let imageSubject = PublishSubject<UIImage>()
+  
+  var retainSelf: ImagePickerDelegate? = nil
 
   init(for controller: UIImagePickerController) {
+    super.init()
     self.controller = controller
+    self.retainSelf = self
   }
 
   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -97,9 +105,15 @@ class ImagePickerDelegate: NSObject, UIImagePickerControllerDelegate, UINavigati
         : UIImagePickerControllerOriginalImage
       let image = try cast(info[key], to: UIImage.self)
       imageSubject.onNext(image)
+      imageSubject.onCompleted()
     } catch {
       imageSubject.onError(error)
     }
   }
 
+  deinit {
+    #if DEBUG
+      jack.debug("Bye!")
+    #endif
+  }
 }
