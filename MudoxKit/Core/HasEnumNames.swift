@@ -1,24 +1,19 @@
-
+import CoreLocation
 import UIKit
 
 protocol HasEnumNames {
-
   static var enumName: String { get }
   var fullName: String { get }
   var caseName: String { get }
-
 }
 
 extension HasEnumNames {
-
   public var fullName: String {
     return "\(Self.enumName).\(caseName)"
   }
-
 }
 
 extension UIAlertControllerStyle: HasEnumNames {
-
   public static let enumName = "UIAlertControllerStyle"
 
   public var caseName: String {
@@ -27,11 +22,9 @@ extension UIAlertControllerStyle: HasEnumNames {
     case .alert: return "alert"
     }
   }
-
 }
 
 extension UIImagePickerControllerSourceType: HasEnumNames {
-
   public static let enumName = "UIImagePickerControllerSourceType"
 
   public var caseName: String {
@@ -41,5 +34,30 @@ extension UIImagePickerControllerSourceType: HasEnumNames {
     case .savedPhotosAlbum: return "savedPhotosAlbum"
     }
   }
-  
+}
+
+extension CLAuthorizationStatus: HasEnumNames {
+  public static var enumName: String = "CLAuthorizationStatus"
+
+  public var caseName: String {
+    switch self {
+    case .notDetermined: return "notDetermined"
+    case .denied: return "denied"
+    case .restricted: return "restricted"
+    case .authorizedWhenInUse: return "authorizedWhenInUse"
+    case .authorizedAlways: return "authorizedAlways"
+    }
+  }
+}
+
+extension UIApplicationState: HasEnumNames {
+  public static var enumName: String = "UIApplicationState"
+
+  public var caseName: String {
+    switch self {
+    case .active: return "active"
+    case .inactive: return "inactive"
+    case .background: return "background"
+    }
+  }
 }
