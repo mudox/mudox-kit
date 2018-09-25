@@ -18,7 +18,7 @@ private func _getHUD(
   -> MBProgressHUD?
 {
   guard let hud = MBProgressHUD(for: view) else {
-    let jack = Jack("JacKit.Jack.getHUD", level: .warning)
+    let jack = Jack("JacKit.Jack.getHUD").set(level: .warning)
     if warnIfNotExists {
       var text = "HUD view does not exist"
       if addIfNotExists {
