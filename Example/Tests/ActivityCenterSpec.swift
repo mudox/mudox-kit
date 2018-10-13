@@ -17,6 +17,7 @@ class ActivityCenterSpec: QuickSpec {
 
     describe("Activity") {
 
+      // FIXME: throwAssertion() can not capture expection
       it("reject duplicate identifers") {
         expect { () -> Void in
           _ = Activity(identifier: "a")
@@ -35,7 +36,7 @@ class ActivityCenterSpec: QuickSpec {
         center.reset()
       }
 
-      fit("track network activities") {
+      it("track network activities") {
         let a1 = Activity(identifier: "networkRequest", isNetworkActivity: true)
         let a2 = Activity(identifier: "anotherNetworkRequest", isNetworkActivity: true)
         let b = Activity(identifier: "nonNetworkRequest", isNetworkActivity: false)
@@ -45,17 +46,17 @@ class ActivityCenterSpec: QuickSpec {
         })
 
         // a1 network task started
-        a1.start()
+        a1.begin()
         expect(center.networkActivity.asObservable()).first == true
 
         // network is active as long as at least 1 netowrk task is active
-        a2.start()
+        a2.begin()
         expect(center.networkActivity.asObservable()).first == true
         a2.end()
         expect(center.networkActivity.asObservable()).first == true
 
         // other events do not affect the result
-        a1.succeed()
+        a1.complete()
         expect(center.networkActivity.asObservable()).first == true
         a1.next(1)
         expect(center.networkActivity.asObservable()).first == true
@@ -65,15 +66,16 @@ class ActivityCenterSpec: QuickSpec {
         expect(center.networkActivity.asObservable()).first == false
 
         // b is not a network task, should not affect the result
-        b.start()
+        b.begin()
         expect(center.networkActivity.asObservable()).first == false
       }
 
+      // FIXME: throwAssertion() can not capture expection
       it("monitor activity concurrency") {
         let a = Activity(identifier: "networkRequest", maxConcurrency: 1)
         expect{ () -> Void in
-          a.start()
-          a.start()
+          a.begin()
+          a.begin()
         }.to(throwAssertion())
       }
 

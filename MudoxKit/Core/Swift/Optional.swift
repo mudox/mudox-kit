@@ -34,7 +34,7 @@ infix operator !!
 ///   - wrapped: The optional value.
 ///   - failureDescription: The custom failure message.
 /// - Returns: The unwraped value if any.
-func !! <T>(wrapped: T?, failureDescription: @autoclosure () -> String) -> T {
+public func !! <T>(wrapped: T?, failureDescription: @autoclosure () -> String) -> T {
   if let unwrapped = wrapped {
     return unwrapped
   } else {
@@ -55,7 +55,7 @@ infix operator !?
 ///   - failure.value: The fallback value returned in release mode.
 ///   - failure.description: The exception description printed out in debug mode.
 /// - Returns: The wrapped value if is not nil.
-func !?<T> (
+public func !?<T> (
   wrapped: T?,
   _ failure: @autoclosure () -> (value: T, description: String)
 ) -> T {
@@ -63,34 +63,34 @@ func !?<T> (
   return wrapped ?? failure().value
 }
 
-func !?<T: ExpressibleByIntegerLiteral>
+public func !?<T: ExpressibleByIntegerLiteral>
 (wrapped: T?, failureDescription: @autoclosure () -> String) -> T
 {
   assert(wrapped != nil, failureDescription())
   return wrapped ?? 0
 }
 
-func !?<T: ExpressibleByStringLiteral>
+public func !?<T: ExpressibleByStringLiteral>
 (wrapped: T?, failureDescription: @autoclosure () -> String) -> T
 {
   assert(wrapped != nil, failureDescription)
   return wrapped ?? ""
 }
 
-func !?<T: ExpressibleByArrayLiteral>
+public func !?<T: ExpressibleByArrayLiteral>
   (wrapped: T?, failureDescription: @autoclosure () -> String) -> T
 {
   assert(wrapped != nil, failureDescription())
   return wrapped ?? []
 }
 
-func !?<T: ExpressibleByDictionaryLiteral>
+public func !?<T: ExpressibleByDictionaryLiteral>
   (wrapped: T?, failureDescription: @autoclosure () -> String) -> T
 {
   assert(wrapped != nil, failureDescription())
   return wrapped ?? [:]
 }
 
-func !?(wrapped: ()?, failureText: @autoclosure () -> String) {
+public func !?(wrapped: ()?, failureText: @autoclosure () -> String) {
   assert(wrapped != nil, failureText)
 }

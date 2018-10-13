@@ -8,7 +8,7 @@ import Eureka
 import MudoxKit
 
 import JacKit
-fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
+private let jack = Jack("AlertVC")
 
 private struct ViewModel {
   // outputs
@@ -176,4 +176,3 @@ class AlertVC: FormViewController {
   }
 
 }
-

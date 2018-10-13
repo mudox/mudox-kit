@@ -17,7 +17,7 @@
 		F40ABCA120B4427800AAC894 /* ArraySepc.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40ABC9720B4427700AAC894 /* ArraySepc.swift */; };
 		F40ABCA220B4427800AAC894 /* WithSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40ABC9820B4427700AAC894 /* WithSpec.swift */; };
 		F40ABCA320B4427800AAC894 /* InfoSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40ABC9920B4427700AAC894 /* InfoSpec.swift */; };
-		F45A6A7520C80EC6001AE8AE /* ActivityCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45A6A7420C80EC6001AE8AE /* ActivityCenter.swift */; };
+		F45A6A7520C80EC6001AE8AE /* ActivityCenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45A6A7420C80EC6001AE8AE /* ActivityCenterSpec.swift */; };
 		F46927AC20BE6B2100EA6670 /* RxOperatorsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46927AB20BE6B2100EA6670 /* RxOperatorsSpec.swift */; };
 		F4C1601C20B43D5800B9CCFF /* SvpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1600320B43D5800B9CCFF /* SvpVC.swift */; };
 		F4C1601D20B43D5800B9CCFF /* MbpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1600420B43D5800B9CCFF /* MbpVC.swift */; };
@@ -70,7 +70,7 @@
 		F40ABC9720B4427700AAC894 /* ArraySepc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArraySepc.swift; sourceTree = "<group>"; };
 		F40ABC9820B4427700AAC894 /* WithSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithSpec.swift; sourceTree = "<group>"; };
 		F40ABC9920B4427700AAC894 /* InfoSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoSpec.swift; sourceTree = "<group>"; };
-		F45A6A7420C80EC6001AE8AE /* ActivityCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCenter.swift; sourceTree = "<group>"; };
+		F45A6A7420C80EC6001AE8AE /* ActivityCenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCenterSpec.swift; sourceTree = "<group>"; };
 		F46927AB20BE6B2100EA6670 /* RxOperatorsSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxOperatorsSpec.swift; sourceTree = "<group>"; };
 		F4C1600320B43D5800B9CCFF /* SvpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvpVC.swift; sourceTree = "<group>"; };
 		F4C1600420B43D5800B9CCFF /* MbpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MbpVC.swift; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 				F40ABC7820B4421900AAC894 /* Info.plist */,
 				F40ABC9120B4427600AAC894 /* AlertLayoutSpec.swift */,
 				F40ABC9720B4427700AAC894 /* ArraySepc.swift */,
-				F45A6A7420C80EC6001AE8AE /* ActivityCenter.swift */,
+				F45A6A7420C80EC6001AE8AE /* ActivityCenterSpec.swift */,
 				F40ABC9920B4427700AAC894 /* InfoSpec.swift */,
 				F40ABC9220B4427600AAC894 /* IntSpec.swift */,
 				F40ABC9020B4427600AAC894 /* OptionalSpec.swift */,
@@ -444,7 +444,7 @@
 				F40ABC9B20B4427800AAC894 /* AlertLayoutSpec.swift in Sources */,
 				F40ABC9C20B4427800AAC894 /* IntSpec.swift in Sources */,
 				F40ABCA120B4427800AAC894 /* ArraySepc.swift in Sources */,
-				F45A6A7520C80EC6001AE8AE /* ActivityCenter.swift in Sources */,
+				F45A6A7520C80EC6001AE8AE /* ActivityCenterSpec.swift in Sources */,
 				F40ABC9F20B4427800AAC894 /* SequenceSpec.swift in Sources */,
 				F40ABC9D20B4427800AAC894 /* StringSpec.swift in Sources */,
 			);

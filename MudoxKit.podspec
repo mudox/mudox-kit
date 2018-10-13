@@ -71,6 +71,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'All' do |ss|
     ss.dependency 'MudoxKit/Core'
+    ss.dependency 'MudoxKit/ActivityCenter'
     ss.dependency 'MudoxKit/MBProgressHUD'
     ss.dependency 'MudoxKit/SVProgressHUD'
     ss.dependency 'MudoxKit/NVActivityIndicatorView'

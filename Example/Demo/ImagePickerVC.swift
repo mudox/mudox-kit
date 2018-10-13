@@ -8,7 +8,7 @@ import Eureka
 import MudoxKit
 
 import JacKit
-fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
+private let jack = Jack("ImagePickerVC")
 
 class ImagePickerVC: FormViewController {
 
@@ -46,7 +46,7 @@ class ImagePickerVC: FormViewController {
     }.onCellSelection { [weak self] cell, row in
       guard let ss = self else { return }
       MediaPicker
-        .image(from: ss.sourceType, presenter: ss)
+        .singleImageSelected(from: ss.sourceType, sourceViewController: ss)
         .subscribe(onSuccess: { print("image: \($0)") }, onError: { print("error: \($0)") })
         .disposed(by: ss.disposeBag)
     }

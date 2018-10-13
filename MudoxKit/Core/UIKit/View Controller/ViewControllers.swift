@@ -39,23 +39,22 @@ public enum ViewControllers {
   ///     specify nil, this method looks for the nib file in the main bundle.
   ///
   /// - Returns: The loaded view controller instance.
-  public func create<ViewController: UIViewController>(
+  public static func create<ViewController: UIViewController>(
     _: ViewController.Type,
     identifier: String? = nil,
     storyboard: String,
     bundle: Bundle? = nil
   )
-    -> ViewController?
+    -> ViewController
   {
     let storyboard = UIStoryboard(name: storyboard, bundle: bundle)
     if let id = identifier {
-      return storyboard.instantiateViewController(withIdentifier: id) as? ViewController
+      return storyboard.instantiateViewController(withIdentifier: id) as! ViewController
     } else {
-      return storyboard.instantiateInitialViewController() as? ViewController
+      return storyboard.instantiateInitialViewController() as! ViewController
     }
   }
 
-  
   /// Load view controller from the given nib file.
   ///
   /// - Parameters:
@@ -65,7 +64,7 @@ public enum ViewControllers {
   ///     specify nil, this method looks for the nib file in the main bundle.
   ///
   /// - Returns: The loaded view controller instance.
-  public func create<ViewController: UIViewController>(
+  public static func create<ViewController: UIViewController>(
     _: ViewController.Type,
     nibName: String,
     bundle: Bundle? = nil

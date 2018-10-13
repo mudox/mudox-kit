@@ -9,7 +9,8 @@ import MBProgressHUD
 import MudoxKit
 
 import JacKit
-fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
+
+private let jack = Jack()
 
 class MbpVC: FormViewController {
 
@@ -54,7 +55,7 @@ class MbpVC: FormViewController {
       .disposed(by: disposeBag)
 
     mbpCommands
-      .asDriver(onErrorJustReturn: .failure(title: nil, message: "Something happend ..."))
+      .asDriver(onErrorJustReturn: .error(title: nil, message: "Something happend ..."))
       .drive(self.headerView.mbp.hud)
       .disposed(by: disposeBag)
 
@@ -224,7 +225,7 @@ class MbpVC: FormViewController {
   func simulate() {
     let commands = Observable<MBPCommand>
       .create { observer in
-        observer.onNext(.start(title: "Downloading ...", mode: .annularDeterminate) { hud in
+        observer.onNext(.begin(title: "Downloading ...", mode: .annularDeterminate) { hud in
           hud.minSize = CGSize(width: 160, height: 100)
         })
 
@@ -235,7 +236,7 @@ class MbpVC: FormViewController {
           progress += 0.02
         }
         if arc4random_uniform(2) == 0 {
-          observer.onNext(.failure())
+          observer.onNext(.error())
         } else {
           observer.onNext(.success())
         }
@@ -247,7 +248,7 @@ class MbpVC: FormViewController {
       .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
 
     commands
-      .asDriver(onErrorJustReturn: .failure(title: "Oops!"))
+      .asDriver(onErrorJustReturn: .error(title: "Oops!"))
       .drive(view.mbp.hud)
       .disposed(by: disposeBag)
   }
@@ -264,7 +265,7 @@ class MbpVC: FormViewController {
     let height = CGFloat(values["height"] as! Float)
     let minSize = CGSize(width: width, height: height)
 
-    return .next(title: title, message: message, mode: mode) {
+    return .begin(title: title, message: message, mode: mode) {
       hud in
       hud.isSquare = isSquare
       hud.margin = margin

@@ -2,7 +2,7 @@ import UIKit
 import Eureka
 
 import JacKit
-fileprivate let jack = Jack.usingLocalFileScope().setLevel(.verbose)
+private let jack = Jack("NvaVC")
 
 class NvaVC: FormViewController {
 
