@@ -18,7 +18,7 @@ class ActivityCenterSpec: QuickSpec {
     describe("Activity") {
 
       // FIXME: throwAssertion() can not capture expection
-      it("reject duplicate identifers") {
+      xit("reject duplicate identifers") {
         expect { () -> Void in
           _ = Activity(identifier: "a")
           _ = Activity(identifier: "a")
@@ -71,7 +71,7 @@ class ActivityCenterSpec: QuickSpec {
       }
 
       // FIXME: throwAssertion() can not capture expection
-      it("monitor activity concurrency") {
+      xit("monitor activity concurrency") {
         let a = Activity(identifier: "networkRequest", maxConcurrency: 1)
         expect{ () -> Void in
           a.begin()
