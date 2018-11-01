@@ -31,7 +31,7 @@
 		F4C1602520B43D5800B9CCFF /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1600E20B43D5800B9CCFF /* AlertVC.swift */; };
 		F4C1602620B43D5800B9CCFF /* ImagePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1600F20B43D5800B9CCFF /* ImagePickerVC.swift */; };
 		F4C1602820B43D5800B9CCFF /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1601120B43D5800B9CCFF /* MainVC.swift */; };
-		F4F3382821732ABE00DC9638 /* FirstLaunchSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F3382721732ABE00DC9638 /* FirstLaunchSpec.swift */; };
+		F4F3382821732ABE00DC9638 /* FirstLaunchCheckerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F3382721732ABE00DC9638 /* FirstLaunchCheckerSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,7 +86,7 @@
 		F4C1600F20B43D5800B9CCFF /* ImagePickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerVC.swift; sourceTree = "<group>"; };
 		F4C1601020B43D5800B9CCFF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4C1601120B43D5800B9CCFF /* MainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
-		F4F3382721732ABE00DC9638 /* FirstLaunchSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchSpec.swift; sourceTree = "<group>"; };
+		F4F3382721732ABE00DC9638 /* FirstLaunchCheckerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchCheckerSpec.swift; sourceTree = "<group>"; };
 		F57BAEDA7CBD06B75C3C63CB /* MudoxKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MudoxKit.podspec; path = ../MudoxKit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		FA42520682A89AF827D1642B /* Pods-MudoxKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MudoxKit_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-MudoxKit_Example/Pods-MudoxKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		FB23AC4FEFF2824E673D5C70 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -185,7 +185,7 @@
 				F46927AB20BE6B2100EA6670 /* RxOperatorsSpec.swift */,
 				F40ABC9520B4427700AAC894 /* SequenceSpec.swift */,
 				F40ABC9320B4427600AAC894 /* StringSpec.swift */,
-				F4F3382721732ABE00DC9638 /* FirstLaunchSpec.swift */,
+				F4F3382721732ABE00DC9638 /* FirstLaunchCheckerSpec.swift */,
 				F40ABC9820B4427700AAC894 /* WithSpec.swift */,
 			);
 			path = Tests;
@@ -450,7 +450,7 @@
 				F45A6A7520C80EC6001AE8AE /* ActivityCenterSpec.swift in Sources */,
 				F40ABC9F20B4427800AAC894 /* SequenceSpec.swift in Sources */,
 				F40ABC9D20B4427800AAC894 /* StringSpec.swift in Sources */,
-				F4F3382821732ABE00DC9638 /* FirstLaunchSpec.swift in Sources */,
+				F4F3382821732ABE00DC9638 /* FirstLaunchCheckerSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

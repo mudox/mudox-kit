@@ -19,8 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     The.app.mdx.startTrackingStateChanges()
     The.app.mdx.dumpBasicInfo()
     
-    _ = FirstLaunch.kind
-    
     setupEurekaFormStyle()
     
     return true
