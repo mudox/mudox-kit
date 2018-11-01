@@ -15,7 +15,7 @@ infix operator ???: NilCoalescingPrecedence
 ///   - optional: The optional value.
 ///   - elseString: Fall back string if the optional value is nil.
 /// - Returns: The string that describing the optional value.
-public func ???<T>(optional: T?, elseString: @autoclosure () -> String) -> String
+public func ??? <T>(optional: T?, elseString: @autoclosure () -> String) -> String
 {
   switch optional {
   case let value?: return String(describing: value)
@@ -52,45 +52,42 @@ infix operator !?
 ///
 /// - Parameters:
 ///   - wrapped: The optional value to force unwrap conditionally.
-///   - failure.value: The fallback value returned in release mode.
-///   - failure.description: The exception description printed out in debug mode.
+///   - failure.defaultValue: The fallback value returned in release mode.
+///   - failure.message: The exception description printed out in debug mode.
 /// - Returns: The wrapped value if is not nil.
-public func !?<T> (
-  wrapped: T?,
-  _ failure: @autoclosure () -> (value: T, description: String)
-) -> T {
-  assert(wrapped != nil, failure().description)
-  return wrapped ?? failure().value
+public func !? <T>(wrapped: T?, _ failure: @autoclosure () -> (defaultValue: T, message: String)) -> T {
+  assert(wrapped != nil, failure().message)
+  return wrapped ?? failure().defaultValue
 }
 
-public func !?<T: ExpressibleByIntegerLiteral>
+public func !? <T: ExpressibleByIntegerLiteral>
 (wrapped: T?, failureDescription: @autoclosure () -> String) -> T
 {
   assert(wrapped != nil, failureDescription())
   return wrapped ?? 0
 }
 
-public func !?<T: ExpressibleByStringLiteral>
+public func !? <T: ExpressibleByStringLiteral>
 (wrapped: T?, failureDescription: @autoclosure () -> String) -> T
 {
   assert(wrapped != nil, failureDescription)
   return wrapped ?? ""
 }
 
-public func !?<T: ExpressibleByArrayLiteral>
-  (wrapped: T?, failureDescription: @autoclosure () -> String) -> T
+public func !? <T: ExpressibleByArrayLiteral>
+(wrapped: T?, failureDescription: @autoclosure () -> String) -> T
 {
   assert(wrapped != nil, failureDescription())
   return wrapped ?? []
 }
 
-public func !?<T: ExpressibleByDictionaryLiteral>
-  (wrapped: T?, failureDescription: @autoclosure () -> String) -> T
+public func !? <T: ExpressibleByDictionaryLiteral>
+(wrapped: T?, failureDescription: @autoclosure () -> String) -> T
 {
   assert(wrapped != nil, failureDescription())
   return wrapped ?? [:]
 }
 
-public func !?(wrapped: ()?, failureText: @autoclosure () -> String) {
+public func !? (wrapped: ()?, failureText: @autoclosure () -> String) {
   assert(wrapped != nil, failureText)
 }

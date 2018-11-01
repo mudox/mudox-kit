@@ -28,7 +28,7 @@ extension Mudoxive where Base: UIApplication {
       stopTrackingStateChanges()
     }
     
-    _appStateTrackingTokens = _appStates.map { item in
+    _appStateTrackingTokens = applicationStatesAndDescriptions.map { item in
       The.notificationCenter.addObserver(forName: item.key, object: nil, queue: nil, using: { _ in
         Jack().debug("⭐️ \(item.value)", options: .bare)
       })
