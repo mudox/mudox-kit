@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		10609801BD0FEB4B6E74FFDF /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47910D6F7C7DE5D25C14C6D /* Pods_Demo.framework */; };
 		66B7E37DD16BDEE317042710 /* Pods_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CFC059EF38D6365E8A4978 /* Pods_Test.framework */; };
-		68EA19814B8B1C687D96A2A8 /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A4E24FE77A5796D7D18BD9 /* Pods_Tests.framework */; };
 		F40ABC9A20B4427800AAC894 /* OptionalSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40ABC9020B4427600AAC894 /* OptionalSpec.swift */; };
 		F40ABC9B20B4427800AAC894 /* AlertLayoutSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40ABC9120B4427600AAC894 /* AlertLayoutSpec.swift */; };
 		F40ABC9C20B4427800AAC894 /* IntSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40ABC9220B4427600AAC894 /* IntSpec.swift */; };
@@ -109,7 +108,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68EA19814B8B1C687D96A2A8 /* Pods_Tests.framework in Frameworks */,
 				66B7E37DD16BDEE317042710 /* Pods_Test.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
