@@ -60,7 +60,7 @@ tmux new-window              \
   -d
 sleep 0.2
 tmux send-keys -t "${window}" "
-jacsrv --port 7000 || say 'starting logging server for mudox kit failed'
+jacsrv --port 7000
 "
 
 #
