@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
   s.default_subspec = 'Core'
 
   s.subspec 'Core' do |core|
-    core.source_files = 'MudoxKit/Core/**/*'
+    core.source_files = 'Source/Core/**/*'
 
     core.dependency 'JacKit'
 
@@ -39,33 +39,33 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'ActivityCenter' do |ss|
-    ss.source_files = 'MudoxKit/ActivityCenter/**/*.{swift,h,m}'
+    ss.source_files = 'Source/ActivityCenter/**/*.{swift,h,m}'
     ss.dependency 'RxSwift'
     ss.dependency 'RxCocoa'
   end
 
   s.subspec 'MBProgressHUD' do |ss|
-    ss.source_files = 'MudoxKit/MBProgressHUD/**/*.swift'
+    ss.source_files = 'Source/MBProgressHUD/**/*.swift'
     ss.dependency 'MBProgressHUD'
-    ss.resource_bundle = { 'mbp' => 'MudoxKit/MBProgressHUD/mbp.xcassets' }
+    ss.resource_bundle = { 'mbp' => 'Source/MBProgressHUD/mbp.xcassets' }
   end
 
   s.subspec 'SVProgressHUD' do |ss|
-    ss.source_files = 'MudoxKit/SVProgressHUD/**/*'
+    ss.source_files = 'Source/SVProgressHUD/**/*'
     ss.dependency 'SVProgressHUD'
   end
 
   s.subspec 'NVActivityIndicatorView' do |ss|
-    ss.source_files = 'MudoxKit/NVActivityIndicatorView/**/*'
+    ss.source_files = 'Source/NVActivityIndicatorView/**/*'
     ss.dependency 'NVActivityIndicatorView'
   end
 
   s.subspec 'ObjectiveC' do |ss|
-    ss.source_files = 'MudoxKit/ObjectiveC/**/*'
+    ss.source_files = 'Source/ObjectiveC/**/*'
   end
 
   s.subspec 'Eureka' do |ss|
-    ss.source_files = 'MudoxKit/Eureka/**/*'
+    ss.source_files = 'Source/Eureka/**/*'
     ss.dependency 'Eureka'
   end
 

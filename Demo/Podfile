@@ -1,0 +1,23 @@
+use_frameworks!
+platform :ios, '9.0'
+
+inhibit_all_warnings!
+
+target 'Demo' do
+
+  pod 'JacKit',        :path => '../../JacKit/'
+  pod 'MudoxKit/All',  :path => '../'
+
+  pod 'Eureka'
+
+  target 'Test' do
+    inherit! :search_paths
+
+    pod 'Quick'
+    pod 'Nimble'
+
+    pod 'RxTest'
+    pod 'RxBlocking'
+    pod 'RxNimble'
+  end
+end
