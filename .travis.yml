@@ -16,4 +16,4 @@ script:
   - bundle exec fastlane ios test
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -J 'GitHub'
+  - bash <(curl -s https://codecov.io/bash) -J 'MudoxKit'

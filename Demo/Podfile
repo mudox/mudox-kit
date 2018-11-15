@@ -5,7 +5,13 @@ inhibit_all_warnings!
 
 target 'Demo' do
 
-  pod 'JacKit',        :path => '../../JacKit/'
+  # Travis-CI set `CI` on macOS environment
+  if ENV['CI'] == 'true'
+    pod 'JacKit',  :git  => 'https://github.com/mudox/jac-kit.git'
+  else
+    pod 'JacKit',  :path => '/Users/mudox/Develop/Apple/Frameworks/JacKit'
+  end
+
   pod 'MudoxKit/All',  :path => '../'
 
   pod 'Eureka'
@@ -20,4 +26,5 @@ target 'Demo' do
     pod 'RxBlocking'
     pod 'RxNimble'
   end
+
 end

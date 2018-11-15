@@ -21,9 +21,9 @@ platform :ios do
   desc "Build and test with code coverage"
   lane :test do
 
-    workspace = "Demo/GitHubKit.xcworkspace"
-    project = "Demo/GitHubKit.xcodeproj"
-    scheme = "GitHubKit-Demo"
+    workspace = "Demo/MudoxKit.xcworkspace"
+    project = "Demo/MudoxKit.xcodeproj"
+    scheme = "MudoxKit-Demo"
     targetDevices = ["iPhone 8"]
 
     run_tests(
