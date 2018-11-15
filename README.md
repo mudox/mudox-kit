@@ -1,9 +1,10 @@
 # MudoxKit
 
-[![CI Status](https://img.shields.io/travis/mudox/MudoxKit.svg?style=flat)](https://travis-ci.org/mudox/MudoxKit)
-[![Version](https://img.shields.io/cocoapods/v/MudoxKit.svg?style=flat)](https://cocoapods.org/pods/MudoxKit)
-[![License](https://img.shields.io/cocoapods/l/MudoxKit.svg?style=flat)](https://cocoapods.org/pods/MudoxKit)
-[![Platform](https://img.shields.io/cocoapods/p/MudoxKit.svg?style=flat)](https://cocoapods.org/pods/MudoxKit)
+![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)
+[![GitHub license](https://img.shields.io/github/license/mudox/mudox-kit.svg)](https://github.com/mudox//blob/mtik-xodumaster/LICENSE)
+[![Build Status](https://travis-ci.com/mudox/mudox-kit.svg?branch=master)](https://travis-ci.com/mudox/mudox-kit)
+[![codecov](https://codecov.io/gh/mudox/mudox-kit/branch/master/graph/badge.svg)](https://codecov.io/gh/mudox/mudox-kit)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d3480938856003c3fcce/maintainability)](https://codeclimate.com/github/mudox/mudox-kit/maintainability)
 
 ## Example
 

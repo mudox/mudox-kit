@@ -14,6 +14,15 @@ before_script:
 
 script:
   - bundle exec fastlane ios test
+  #- set -o pipefail
+    #&& xcodebuild test
+      #-enableCodeCoverage YES
+      #-workspace Demo/MudoxKit.xcworkspace
+      #-scheme MudoxKit-Demo
+      #-destination 'platform=iOS Simulator,OS=12.0,name=iPhone 8'
+      #-configuration=Debug
+      #ONLY_ACTIVE_ARCH=YES
+    #| xcpretty
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -J 'MudoxKit'
