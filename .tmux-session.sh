@@ -45,6 +45,9 @@ vv -O ${session_name}.podspec Demo/Podfile
 :tabnew fastlane/Fastfile
 :tabnew .travis.yml
 :tabnew .gitignore
+:tabnew .tmux-session.sh
+:tabnew README.md
+:tabnew CHANGELOG.md
 "
 
 #
