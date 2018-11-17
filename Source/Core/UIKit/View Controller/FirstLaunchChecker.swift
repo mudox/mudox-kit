@@ -1,6 +1,6 @@
 import JacKit
 
-private let jack = Jack("MudoxKit.FirstLaunchChecker").set(options: .short)
+private let jack = Jack("MudoxKit.FirstLaunchChecker").set(format: .short)
 
 public protocol FirstLaunchCheckerType {
   func check() -> FirstLaunchKind

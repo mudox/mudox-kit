@@ -30,7 +30,7 @@ extension Mudoxive where Base: UIApplication {
     
     _appStateTrackingTokens = applicationStatesAndDescriptions.map { item in
       The.notificationCenter.addObserver(forName: item.key, object: nil, queue: nil, using: { _ in
-        Jack().debug("⭐️ \(item.value)", options: .bare)
+        Jack().debug("⭐️ \(item.value)", format: .bare)
       })
     }
   }
@@ -60,6 +60,6 @@ extension Mudoxive where Base: UIApplication {
       - Name       :   \(Info.systemName)
       - Version    :   \(Info.systemVersion)
     """ + "\n"
-    Jack(Info.appName).info(lines, options: .bare)
+    Jack(Info.appName).info(lines, format: .bare)
   }
 }

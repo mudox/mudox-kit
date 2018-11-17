@@ -49,7 +49,7 @@ open class BaseFlow: FlowType {
   }
 
   deinit {
-    jack.debug("💀 \(type(of: self))", options: .bare)
+    jack.debug("💀 \(type(of: self))", format: .bare)
     decrementInstanceCount()
   }
 
@@ -91,7 +91,7 @@ private extension BaseFlow {
   }
 
   func validateCount(context: String) {
-    let logger = Jack(typeName).descendant(context).set(options: .short)
+    let logger = Jack(typeName).descendant(context).set(format: .short)
 
     let count = flowCounts[typeName]!
 
