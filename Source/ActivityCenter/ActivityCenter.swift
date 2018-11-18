@@ -56,7 +56,7 @@ public final class ActivityCenter {
     case .end:
       let count = _activities[event.activity, default: 0]
       guard count > 0 else {
-        Jack.failure("Internal data inconsistent, count should >= 0")
+        jack.failure("Internal data inconsistent, count should >= 0")
         break
       }
       _activities[event.activity] = count - 1
@@ -90,7 +90,7 @@ public final class ActivityCenter {
     }
 
     if runningCount > maxCount {
-      Jack.failure("""
+      jack.failure("""
         \(runningCount) instances of \(activity) running at the same time, only \(maxCount) instances \
         is allowed.
         """)

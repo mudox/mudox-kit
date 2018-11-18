@@ -42,7 +42,7 @@ public struct MediaPicker {
     }
 
     if controller.delegate != nil {
-      Jack.failure("user should not set the delegate property in the `configure` closure")
+      jack.failure("user should not set the delegate property in the `configure` closure")
     }
 
     /*

@@ -19,7 +19,7 @@ final class MBPResources {
     if let image = UIImage(named: "Check37", in: _assetsBundle, compatibleWith: nil) {
       return image
     } else {
-      Jack.failure("Loading image `Check37` failed")
+      jack.failure("Loading image `Check37` failed")
       return UIImage()
     }
   }
@@ -28,7 +28,7 @@ final class MBPResources {
     if let image = UIImage(named: "Cross37", in: _assetsBundle, compatibleWith: nil) {
       return image
     } else {
-      Jack.failure("Loading image `Cross37` failed")
+      jack.failure("Loading image `Cross37` failed")
       return UIImage()
     }
   }

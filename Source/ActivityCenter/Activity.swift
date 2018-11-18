@@ -38,7 +38,7 @@ public struct Activity {
 
     // Check uniqueness
     if !_allIdentifiers.insert(identifier).inserted {
-      Jack.failure("""
+      jack.failure("""
         activity identifier "\(identifier)" has already been used, double check to \
         use a unique identifier"
         """)

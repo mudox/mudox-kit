@@ -19,7 +19,7 @@ extension Mudoxive where Base: UIImage {
     UIRectFill(CGRect(origin: .zero, size: size))
     
     guard let image = UIGraphicsGetImageFromCurrentImageContext(), let cgImage = image.cgImage else {
-      Jack.failure("failed, return a empty image")
+      jack.failure("failed, return a empty image")
       return UIImage()
     }
     

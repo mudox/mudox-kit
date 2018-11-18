@@ -1,6 +1,7 @@
 import Foundation
 
 import JacKit
+
 fileprivate let jack = Jack()
 
 
@@ -19,10 +20,9 @@ public func after(
   seconds: TimeInterval,
   in queue: DispatchQueue = DispatchQueue.main,
   do work: @escaping () -> Void
-)
-{
+) {
   guard seconds > 0 else {
-    Jack.failure("paramter `interval` must > 0")
+    jack.function().failure("paramter `interval` must > 0")
     return
   }
 

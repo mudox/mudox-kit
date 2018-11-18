@@ -1,8 +1,6 @@
 import UIKit
 
-import RxSwift
-
-import MudoxKit
+import JacKit
 
 protocol AppFlowType: FlowType {
 
@@ -16,8 +14,8 @@ open class BaseAppFlow: BaseFlow, AppFlowType {
   /// Subclasses need to override this method to put application launching
   /// logic into it.
   open func start() {
-    The.app.mdx.dumpBasicInfo()
-    The.app.mdx.startTrackingStateChanges()
+    Jack.reportAppInfo()
+    Jack.startReportingAppStateChanges()
   }
 
 }
