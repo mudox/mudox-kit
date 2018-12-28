@@ -31,7 +31,6 @@ open class AppFlow: Flow, AppFlowType {
         self.releaseRun()
       #endif
 
-      completable(.completed)
       return Disposables.create()
     }
   }

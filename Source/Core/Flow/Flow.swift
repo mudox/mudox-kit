@@ -7,50 +7,11 @@ import JacKit
 
 private let jack = Jack().set(format: .short)
 
-public enum FlowStage {
-  
-  case window(UIWindow)
-  case viewController(UIViewController)
-
-  public var window: UIWindow! {
-    if case let FlowStage.window(window) = self {
-      return window
-    } else {
-      return nil
-    }
-  }
-
-  public var viewController: UIViewController! {
-    if case let FlowStage.viewController(viewController) = self {
-      return viewController
-    } else {
-      return nil
-    }
-  }
-  
-  public var navigationController: UINavigationController! {
-    if case let FlowStage.viewController(vc) = self {
-      return vc as? UINavigationController
-    } else {
-      return nil
-    }
-  }
-
-  public var tabBarController: UITabBarController! {
-    if case let FlowStage.viewController(vc) = self {
-      return vc as? UITabBarController
-    } else {
-      return nil
-    }
-  }
-
-}
-
 public protocol FlowType: AnyObject {
 
   var disposeBag: DisposeBag { get set }
 
-  var stage: FlowStage { get }
+  var stage: Flow.Stage { get }
 
 }
 
@@ -58,9 +19,9 @@ open class Flow: FlowType {
 
   public var disposeBag = DisposeBag()
 
-  public let stage: FlowStage
+  public let stage: Flow.Stage
 
-  public init(on stage: FlowStage) {
+  public init(on stage: Flow.Stage) {
     self.stage = stage
     incrementInstanceCount()
   }
