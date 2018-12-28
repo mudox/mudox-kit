@@ -1,25 +1,28 @@
 import UIKit
 
-import RxSwift
 import RxCocoa
-
-import JacKit
-fileprivate let jack = Jack()
+import RxSwift
 
 extension Reactive where Base: UITextField {
 
-  public var isPlaceHolderHidden: Driver<Bool> {
-    
+  public var shouldHidePlaceHolder: Driver<Bool> {
     return isEditing.withLatestFrom(text.orEmpty.asDriver()) {
       isEditing, text -> Bool in
-      
+
       if isEditing {
         return true
       } else {
-        return !text.trimmed().isEmpty
+        return !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
       }
     }
-    
+
   }
-  
+
+  public var shouldHideClearButton: Driver<Bool> {
+    return Driver.combineLatest(isEditing, text.orEmpty.asDriver()) {
+      isEditing, text -> Bool in
+      !(isEditing && !text.isEmpty)
+    }
+  }
+
 }
