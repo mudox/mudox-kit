@@ -1,10 +1,10 @@
 import UIKit
 
-import RxSwift
 import RxCocoa
+import RxSwift
 
 import JacKit
-fileprivate let jack = Jack()
+fileprivate let jack = Jack().set(format: .short)
 
 extension Reactive where Base: UIControl {
 
@@ -18,22 +18,21 @@ extension Reactive where Base: UIControl {
 }
 
 extension Reactive where Base: UIControl {
-  
-  public static func setupTapStopGroup(_ controls: Base...) -> Disposable {
-      guard controls.count > 1 else {
-        Jack("MudoxKit.Array.setupTapStop").warn("count should > 1")
-        return Disposables.create()
-      }
-      
-      let disposables = controls.dropLast().enumerated().map { indexAndControl -> Disposable in
-        let (index, control) = indexAndControl
-        let nextControl = controls[index + 1]
-        return control.rx.controlEvent(.editingDidEndOnExit).bind(onNext: {
-          nextControl.becomeFirstResponder()
-        })
-      }
-      
-      return Disposables.create(disposables)
+
+  public static func createTapStopGroup(_ controls: Base...) -> Disposable {
+    guard controls.count > 1 else {
+      jack.func().failure("Need at least 2 controls, currently \(controls.count) control")
+      return Disposables.create()
+    }
+
+    let disposables = controls.dropLast().enumerated().map { index, control -> Disposable in
+      let nextControl = controls[index + 1]
+      return control.rx.controlEvent(.editingDidEndOnExit).bind(onNext: {
+        nextControl.becomeFirstResponder()
+      })
+    }
+
+    return Disposables.create(disposables)
   }
-  
+
 }
