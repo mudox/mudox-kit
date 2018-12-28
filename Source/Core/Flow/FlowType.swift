@@ -5,9 +5,10 @@ import RxSwift
 
 import JacKit
 
-private let jack = Jack()
+private let jack = Jack().set(format: .short)
 
 public enum FlowStage {
+  
   case window(UIWindow)
   case viewController(UIViewController)
 
@@ -26,6 +27,22 @@ public enum FlowStage {
       return nil
     }
   }
+  
+  public var navigationController: UINavigationController! {
+    if case let FlowStage.viewController(vc) = self {
+      return vc as? UINavigationController
+    } else {
+      return nil
+    }
+  }
+
+  public var tabBarController: UITabBarController! {
+    if case let FlowStage.viewController(vc) = self {
+      return vc as? UITabBarController
+    } else {
+      return nil
+    }
+  }
 
 }
 
@@ -37,19 +54,18 @@ public protocol FlowType: AnyObject {
 
 }
 
-open class BaseFlow: FlowType {
+open class Flow: FlowType {
 
   public var disposeBag = DisposeBag()
 
   public let stage: FlowStage
 
-  public init(stage: FlowStage) {
+  public init(on stage: FlowStage) {
     self.stage = stage
     incrementInstanceCount()
   }
 
   deinit {
-    jack.debug("💀 \(type(of: self))", format: .bare)
     decrementInstanceCount()
   }
 
@@ -59,17 +75,18 @@ open class BaseFlow: FlowType {
 
 private var flowCounts: [String: Int] = [:]
 
-private var flowCountsDump: String {
+private var dump: String {
   if flowCounts.isEmpty {
     return "flows: <no flows>"
   } else {
     return "flows: " + flowCounts
+      .filter { $1 != 0 }
       .map { "\($0) [\($1)]" }
       .joined(separator: ", ")
   }
 }
 
-private extension BaseFlow {
+private extension Flow {
 
   var typeName: String {
     return String(describing: type(of: self))
@@ -85,23 +102,24 @@ private extension BaseFlow {
     validateCount(context: "deinit")
   }
 
-  /// Subclass can override this propety to return a bigger number.
+  /// Subclass can override this property to return a bigger number.
   var maximumInstanceCount: Int {
     return 1
   }
 
   func validateCount(context: String) {
-    let logger = Jack(typeName).descendant(context).set(format: .short)
+    let logger = Jack(typeName).sub(context).set(format: .short)
 
     let count = flowCounts[typeName]!
+    let symbol = (context == "init") ? "🔥" : "💀"
 
     switch count {
     case 0 ... maximumInstanceCount:
-      logger.debug(flowCountsDump)
+      logger.debug("\(symbol) \(typeName) - \(dump)", format: .bare)
     default:
       logger.warn("""
-      \(flowCountsDump)
-      invalid count: \(count)
+      \(dump)
+      Invalid instance count: \(count)
       """)
     }
   }
