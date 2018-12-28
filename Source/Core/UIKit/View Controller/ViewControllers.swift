@@ -3,6 +3,9 @@ import UIKit
 /// The general view controller factory. It provides basic methods to create or
 /// load view controllers. User can extend it to create specific / view
 /// controllers.
+///
+/// User can extension this class to add more specific view controller factory
+/// methods into it.
 public enum ViewControllers {
 
   /// Load view controller from given storyboard.

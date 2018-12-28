@@ -22,7 +22,7 @@ public func after(
   do work: @escaping () -> Void
 ) {
   guard seconds > 0 else {
-    jack.function().failure("paramter `interval` must > 0")
+    jack.func().failure("paramter `interval` must > 0")
     return
   }
 
