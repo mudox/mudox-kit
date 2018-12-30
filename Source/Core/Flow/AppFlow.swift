@@ -8,70 +8,82 @@ import JacKit
 private let jack = Jack().set(format: .short)
 
 public protocol AppFlowType: FlowType {
-
-  var run: Completable { get }
-
+  #if DEBUG
+    func run(reset: [String]?, mode: String?)
+  #else
+    func run()
+  #endif
 }
 
 open class AppFlow: Flow, AppFlowType {
 
-  open var run: Completable {
-    return .create { completable in
+  #if DEBUG
+    public func run(reset resetModes: [String]? = nil, mode: String? = nil) {
+      _resetModes = resetModes
+      _runMode = mode
 
       Jack.reportAppInfo()
       Jack.startReportingAppStateChanges()
 
-      #if DEBUG
-        self.resetIfNeeded()
-      #endif
+      resetIfNeeded()
 
-      #if DEBUG
-        self.debugRun(self.runMode)
-      #else
-        self.releaseRun()
-      #endif
-
-      return Disposables.create()
+      debugRun(mode: runMode)
     }
-  }
+
+  #else
+    public func run() {
+      Jack.reportAppInfo()
+      Jack.startReportingAppStateChanges()
+
+      releaseRun()
+    }
+
+  #endif
 
   // MARK: - Reset App States
 
   #if DEBUG
 
-    open var resetModes: [String]? {
+    private var _resetModes: [String]?
+
+    private var _envResetModes: [String]? {
       return ProcessInfo.processInfo
         .environment["APP_RESET_MODE"]?
         .split(separator: " ")
         .map { String($0.lowercased()) }
     }
 
-    /// Reset app states for developing purpose
-    ///
-    /// Reset according to the value of environment variable __RESET__:
-    /// - "defaults":  reset UserDefaults through SwiftyUserDefaults
-    /// - "cache": reset caches through Cache
+    private var resetModes: [String]? {
+      return _resetModes ?? _envResetModes
+    }
+
     private func resetIfNeeded() {
       resetModes?.forEach(reset)
     }
 
-    open func reset(_: String) {
-      jack.func().verbose("BaseAppFlow.reset(_ mode:) does nothing, no need to call super in overrides")
+    open func reset(mode: String) {
+      jack.func().verbose("AppFlow.reset(_ mode:) does nothing, no need to call super in overrides")
     }
 
   #endif
 
   // MARK: - Run Mode
 
-  open var runMode: String? {
+  private var _runMode: String?
+
+  private var _envRunMode: String? {
     return ProcessInfo.processInfo.environment["APP_RUN_MODE"]
   }
 
-  open func debugRun(_: String?) {
-    jack.func().verbose("BaseAppFlow.debugRun(_ mode:) does nothing, no need to call super in overrides")
+  private var runMode: String {
+    return _runMode ?? _envRunMode ?? "release"
+  }
+
+  open func debugRun(mode: String) {
+    jack.func().verbose("AppFlow.debugRun(mode:) does nothing, no need to call super in overrides")
   }
 
   open func releaseRun() {
-    jack.func().verbose("BaseAppFlow.releaseRun does nothing, no need to call super in overrides")
+    jack.func().verbose("AppFlow.releaseRun() does nothing, no need to call super in overrides")
   }
 }
