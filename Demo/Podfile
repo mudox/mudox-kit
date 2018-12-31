@@ -14,6 +14,8 @@ target 'Demo' do
 
   pod 'MudoxKit/All',  :path => '../'
 
+  pod 'Then'
+
   pod 'Eureka'
 
   target 'Test' do

@@ -60,6 +60,7 @@ PODS:
     - RxAtomic (~> 4.4)
     - RxSwift (~> 4.0)
   - SVProgressHUD (2.2.5)
+  - Then (2.4.0)
 
 DEPENDENCIES:
   - Eureka
@@ -70,6 +71,7 @@ DEPENDENCIES:
   - RxBlocking
   - RxNimble
   - RxTest
+  - Then
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -87,6 +89,7 @@ SPEC REPOS:
     - RxSwiftExt
     - RxTest
     - SVProgressHUD
+    - Then
 
 EXTERNAL SOURCES:
   JacKit:
@@ -111,7 +114,8 @@ SPEC CHECKSUMS:
   RxSwiftExt: 81afb48ab0602f503147417baeb3989d64c7687d
   RxTest: 19d03286bdc0a3aaea5d61d4cde31fdf4bb8a5ba
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  Then: 71866660c7af35a7343831f7668e7cd2b62ee0f2
 
-PODFILE CHECKSUM: c63aa2f45b927dd29a620fea54d8ccf514377a72
+PODFILE CHECKSUM: 9bdbd83587c46fcf590b79ae6f4fa24d3f386858
 
 COCOAPODS: 1.5.3

@@ -1,7 +1,7 @@
 import UIKit
 
-import RxSwift
 import RxCocoa
+import RxSwift
 
 import Eureka
 
@@ -34,7 +34,7 @@ private struct ViewModel {
             return (ViewModel.tip(for: error), nil, error)
           }
         }
-    }
+      }
 
     tip = parseResult.map { $0.tip }
 
@@ -89,41 +89,41 @@ class AlertVC: FormViewController {
     form +++ Section("STYLE")
 
       <<< SegmentedRow<UIAlertController.Style>("style") {
-      $0.options = [.alert, .actionSheet]
-      $0.value = .alert
-      $0.displayValueFor = { $0!.caseName.capitalized }
-    }.onChange { [weak self] row in
-      guard let ss = self else { return }
-      if row.value == nil {
-        jack.failure("Should not be nil")
+        $0.options = [.alert, .actionSheet]
+        $0.value = .alert
+        $0.displayValueFor = { $0!.caseName.capitalized }
+      }.onChange { [weak self] row in
+        guard let ss = self else { return }
+        if row.value == nil {
+          jack.failure("Should not be nil")
+        }
+        ss.style.accept(row.value ?? .alert)
       }
-      ss.style.accept(row.value ?? .alert)
-    }
 
     form +++ Section("LAYOUT")
 
-    <<< TextAreaRow("layout") {
-      $0.title = "Alert Layout Format"
-      $0.placeholder = "Input layout string"
-      $0.textAreaHeight = .dynamic(initialTextViewHeight: 80)
-    }.cellUpdate { cell, row in
-      cell.textView.font = UIFont.systemFont(ofSize: 14)
-    }.onChange { [weak self] row in
-      guard let ss = self else { return }
-      ss.layout.accept(row.value ?? "")
-    }
+      <<< TextAreaRow("layout") {
+        $0.title = "Alert Layout Format"
+        $0.placeholder = "Input layout string"
+        $0.textAreaHeight = .dynamic(initialTextViewHeight: 80)
+      }.cellUpdate { cell, _ in
+        cell.textView.font = UIFont.systemFont(ofSize: 14)
+      }.onChange { [weak self] row in
+        guard let ss = self else { return }
+        ss.layout.accept(row.value ?? "")
+      }
 
     form +++ Section("PARSING RESULT")
 
-    <<< TextAreaRow("tip") {
-      $0.textAreaHeight = .dynamic(initialTextViewHeight: 140)
-    }.cellUpdate { cell, row in
-      with(cell.textView) { v in
-        cell.isUserInteractionEnabled = false
-        v.font = UIFont.systemFont(ofSize: 14)
-        v.backgroundColor = .clear
+      <<< TextAreaRow("tip") {
+        $0.textAreaHeight = .dynamic(initialTextViewHeight: 140)
+      }.cellUpdate { cell, _ in
+        cell.textView.do { v in
+          cell.isUserInteractionEnabled = false
+          v.font = UIFont.systemFont(ofSize: 14)
+          v.backgroundColor = .clear
+        }
       }
-    }
   }
 
   func setupViewModel() {
@@ -140,10 +140,9 @@ class AlertVC: FormViewController {
     vm.tip.drive(
       onNext: { [weak self] text in
         guard let ss = self else { return }
-        with(ss.form.rowBy(tag: "tip") as! TextAreaRow) { row in
-          row.value = text
-          row.updateCell()
-        }
+        let row = ss.form.rowBy(tag: "tip") as! TextAreaRow
+        row.value = text
+        row.updateCell()
       }
     ).disposed(by: disposeBag)
 
@@ -151,7 +150,7 @@ class AlertVC: FormViewController {
       .flatMap { param in
         return UIAlertController.mdx.present(layout: param.layout, style: param.style)
       }
-      .subscribe (
+      .subscribe(
         onNext: {
           jack.info("User select action: \($0)")
         }
@@ -161,13 +160,13 @@ class AlertVC: FormViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    with(navigationItem) { nav in
+    navigationItem.do { nav in
       nav.title = "Alert Layout"
       nav.rightBarButtonItem = UIBarButtonItem()
       nav.rightBarButtonItem?.title = "Show"
     }
 
-    with(tableView!) { tv in
+    tableView!.do { tv in
       tv.separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
     }
 

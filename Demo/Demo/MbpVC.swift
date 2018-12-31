@@ -6,6 +6,8 @@ import RxCocoa
 
 import MBProgressHUD
 
+import Then
+
 import MudoxKit
 
 import JacKit
@@ -77,7 +79,7 @@ class MbpVC: FormViewController {
   }
 
   func setupNavigationBar() {
-    with(navigationItem) { item in
+    navigationItem.do { item in
       item.title = "MBP"
     }
 
