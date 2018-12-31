@@ -18,7 +18,7 @@
 		F40ABCA320B4427800AAC894 /* InfoSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40ABC9920B4427700AAC894 /* InfoSpec.swift */; };
 		F45A6A7520C80EC6001AE8AE /* ActivityCenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45A6A7420C80EC6001AE8AE /* ActivityCenterSpec.swift */; };
 		F46927AC20BE6B2100EA6670 /* RxOperatorsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46927AB20BE6B2100EA6670 /* RxOperatorsSpec.swift */; };
-		F498F0DE21DA5A71002D5A6D /* CodableNSCodingSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F498F0DD21DA5A71002D5A6D /* CodableNSCodingSpec.swift */; };
+		F498F0DE21DA5A71002D5A6D /* NSCodingCodableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F498F0DD21DA5A71002D5A6D /* NSCodingCodableSpec.swift */; };
 		F4C1601C20B43D5800B9CCFF /* SvpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1600320B43D5800B9CCFF /* SvpVC.swift */; };
 		F4C1601D20B43D5800B9CCFF /* MbpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1600420B43D5800B9CCFF /* MbpVC.swift */; };
 		F4C1601E20B43D5800B9CCFF /* NvaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1600520B43D5800B9CCFF /* NvaVC.swift */; };
@@ -75,7 +75,7 @@
 		F40ABC9920B4427700AAC894 /* InfoSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoSpec.swift; sourceTree = "<group>"; };
 		F45A6A7420C80EC6001AE8AE /* ActivityCenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCenterSpec.swift; sourceTree = "<group>"; };
 		F46927AB20BE6B2100EA6670 /* RxOperatorsSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxOperatorsSpec.swift; sourceTree = "<group>"; };
-		F498F0DD21DA5A71002D5A6D /* CodableNSCodingSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableNSCodingSpec.swift; sourceTree = "<group>"; };
+		F498F0DD21DA5A71002D5A6D /* NSCodingCodableSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCodingCodableSpec.swift; sourceTree = "<group>"; };
 		F4C1600320B43D5800B9CCFF /* SvpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SvpVC.swift; sourceTree = "<group>"; };
 		F4C1600420B43D5800B9CCFF /* MbpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MbpVC.swift; sourceTree = "<group>"; };
 		F4C1600520B43D5800B9CCFF /* NvaVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NvaVC.swift; sourceTree = "<group>"; };
@@ -183,7 +183,7 @@
 			children = (
 				F40ABC7820B4421900AAC894 /* Info.plist */,
 				F40ABC9120B4427600AAC894 /* AlertLayoutSpec.swift */,
-				F498F0DD21DA5A71002D5A6D /* CodableNSCodingSpec.swift */,
+				F498F0DD21DA5A71002D5A6D /* NSCodingCodableSpec.swift */,
 				F40ABC9720B4427700AAC894 /* ArraySepc.swift */,
 				F45A6A7420C80EC6001AE8AE /* ActivityCenterSpec.swift */,
 				F40ABC9920B4427700AAC894 /* InfoSpec.swift */,
@@ -454,7 +454,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F46927AC20BE6B2100EA6670 /* RxOperatorsSpec.swift in Sources */,
-				F498F0DE21DA5A71002D5A6D /* CodableNSCodingSpec.swift in Sources */,
+				F498F0DE21DA5A71002D5A6D /* NSCodingCodableSpec.swift in Sources */,
 				F40ABCA320B4427800AAC894 /* InfoSpec.swift in Sources */,
 				F40ABC9A20B4427800AAC894 /* OptionalSpec.swift in Sources */,
 				F40ABC9B20B4427800AAC894 /* AlertLayoutSpec.swift in Sources */,
