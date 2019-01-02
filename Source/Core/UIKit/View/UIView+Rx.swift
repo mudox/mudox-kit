@@ -24,7 +24,7 @@ extension Mudoxive where Base: UIView {
         completion: {
           completion($0)
           if !$0 {
-            observer.onError(CommonError.cancelled)
+            observer.onError(Errors.cancelled)
           } else {
             observer.onNext(())
             observer.onCompleted()

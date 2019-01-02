@@ -10,7 +10,7 @@ import RxCocoa
 /// - Throws: `CommonError.casting`
 public func cast<T>(_ object: Any?, to type: T.Type) throws -> T {
   guard let result = object as? T else {
-    throw CommonError.casting(object, to: type)
+    throw Errors.casting(object, to: type)
   }
   
   return result
@@ -29,7 +29,7 @@ public func cast<T>(_ object: Any?, to type: Optional<T>.Type) throws -> Optiona
   }
   
   guard let returnValue = object as? T else {
-    throw CommonError.casting(object, to: type)
+    throw Errors.casting(object, to: type)
   }
   
   return returnValue

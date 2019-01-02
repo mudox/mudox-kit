@@ -86,7 +86,7 @@ class ImagePickerDelegate: NSObject, UIImagePickerControllerDelegate, UINavigati
   }
 
   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-    imageSubject.onError(CommonError.cancelled)
+    imageSubject.onError(Errors.cancelled)
   }
 
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
