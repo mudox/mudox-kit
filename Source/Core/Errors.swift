@@ -1,4 +1,4 @@
-public enum CommonError: Error {
+public enum Errors: Error {
   // Operation cancelled
   case cancelled
   
