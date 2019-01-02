@@ -5,10 +5,9 @@ import RxSwift
 open class ViewController: UIViewController, ClassInstanceCounting {
 
   public var disposeBag = DisposeBag()
-  
-  
+
   // MARK: InstanceCounting
-  
+
   static var roster: [String: Int] = [:]
 
   // Subclasses no need to add this chunk of code
@@ -17,7 +16,7 @@ open class ViewController: UIViewController, ClassInstanceCounting {
     fatalError("init(coder:) has not been implemented")
   }
 
-  public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+  public init() {
     super.init(nibName: nil, bundle: nil)
     checkIn()
   }
@@ -26,4 +25,20 @@ open class ViewController: UIViewController, ClassInstanceCounting {
     checkOut()
   }
   
+  open override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    setupView()
+    setupModel()
+  }
+  
+  
+  open func setupView() {
+    
+  }
+  
+  open func setupModel() {
+    
+  }
+
 }
