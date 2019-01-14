@@ -94,7 +94,7 @@ class ImagePickerDelegate: NSObject, UIImagePickerControllerDelegate, UINavigati
       #if DEBUG
         fatalError("property `controller` should not be nil")
       #else
-        imageSubject.onError(CommonError.error("weak property `controller` is nil"))
+        imageSubject.onError(Errors.error("weak property `controller` is nil"))
         return
       #endif
     }

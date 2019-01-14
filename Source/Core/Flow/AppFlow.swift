@@ -18,6 +18,17 @@ public protocol AppFlowType: FlowType {
 open class AppFlow: Flow, AppFlowType {
 
   #if DEBUG
+
+    /// Run in given reset & run mode at runtime. It overrides run and reset
+    /// mode derived from environments. It is designed to be called in setup
+    /// stage before each test case (E.g. in `beforeEach` closure of an EarlGrey
+    /// test suite.
+    ///
+    /// - Parameters:
+    ///   - resetModes: Array of reset tokens defined by user, defaults to release
+    ///                 mode.
+    ///   - mode: Debug run mode string, if nil derive from environments which
+    ///           defaults to `"release"`.
     public func run(reset resetModes: [String]? = nil, mode: String? = nil) {
       _resetModes = resetModes
       _runMode = mode
@@ -27,20 +38,21 @@ open class AppFlow: Flow, AppFlowType {
 
       resetIfNeeded()
 
-      debugRun(mode: runMode)
+      run(inDebugMode: runMode)
     }
 
   #else
+
     public func run() {
       Jack.reportAppInfo()
       Jack.startReportingAppStateChanges()
 
-      releaseRun()
+      runInReleaseMode()
     }
 
   #endif
 
-  // MARK: - Reset App States
+  // MARK: - Reset
 
   #if DEBUG
 
@@ -50,7 +62,9 @@ open class AppFlow: Flow, AppFlowType {
       return ProcessInfo.processInfo
         .environment["APP_RESET_MODE"]?
         .split(separator: " ")
-        .map { String($0.lowercased()) }
+        .map { token in
+          String(token).lowercased()
+        }
     }
 
     private var resetModes: [String]? {
@@ -67,23 +81,28 @@ open class AppFlow: Flow, AppFlowType {
 
   #endif
 
-  // MARK: - Run Mode
+  // MARK: - Run
 
-  private var _runMode: String?
+  #if DEBUG
 
-  private var _envRunMode: String? {
-    return ProcessInfo.processInfo.environment["APP_RUN_MODE"]
-  }
+    private var _runMode: String?
 
-  private var runMode: String {
-    return _runMode ?? _envRunMode ?? "release"
-  }
+    private var _envRunMode: String? {
+      return ProcessInfo.processInfo.environment["APP_RUN_MODE"]
+    }
 
-  open func debugRun(mode: String) {
-    jack.func().verbose("AppFlow.debugRun(mode:) does nothing, no need to call super in overrides")
-  }
+    private var runMode: String {
+      return _runMode ?? _envRunMode ?? "release"
+    }
 
-  open func releaseRun() {
+    open func run(inDebugMode: String) {
+      jack.func().verbose("AppFlow.debugRun(mode:) does nothing, no need to call super in overrides")
+    }
+
+  #endif
+
+  open func runInReleaseMode() {
     jack.func().verbose("AppFlow.releaseRun() does nothing, no need to call super in overrides")
   }
+
 }
