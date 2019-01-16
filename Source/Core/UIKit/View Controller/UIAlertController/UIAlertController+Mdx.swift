@@ -45,7 +45,7 @@ extension Mudoxive where Base: UIAlertController {
         }))
       }
 
-      guard let sourceViewController = sourceViewController ?? The.mainWindow.rootViewController else {
+      guard let sourceViewController = sourceViewController ?? The.window.rootViewController else {
         single(.error(UIAlertControllerError.noPresentingViewController))
         return Disposables.create()
       }

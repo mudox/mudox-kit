@@ -52,7 +52,7 @@ public class FirstLaunchChecker: FirstLaunchCheckerType {
   }
 
   internal var currentRelease: String {
-    if let release = The.mainBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
+    if let release = The.bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
       return release
     } else {
       jack.sub(#function).warn("failed to get app release string, return an empty string")
