@@ -15,32 +15,32 @@ public enum The {
   }
 
   /// FileManager.default
-  public static var fileManager: FileManager {
+  public static var files: FileManager {
     return FileManager.default
   }
 
   /// Bundle.main
-  public static var mainBundle: Bundle {
+  public static var bundle: Bundle {
     return Bundle.main
   }
 
   /// UIScreen.main
-  public static var mainScreen: UIScreen {
+  public static var screen: UIScreen {
     return UIScreen.main
   }
 
   /// UIApplication.shared.windows.first!
-  public static var mainWindow: UIWindow {
-    return The.app.windows.first!
+  public static var window: UIWindow {
+    return app.windows.first!
   }
 
   /// UIApplication.shared.windows.first!.rootViewController
-  public static var rootViewController: UIViewController? {
-    return The.mainWindow.rootViewController
+  public static var controller: UIViewController {
+    return window.rootViewController!
   }
 
   /// NofiticationCenter.default
-  public static var notificationCenter: NotificationCenter {
+  public static var notifier: NotificationCenter {
     return NotificationCenter.default
   }
 
@@ -48,9 +48,14 @@ public enum The {
   public static var process: ProcessInfo {
     return ProcessInfo.processInfo
   }
+  
+  /// ProcessInfo.processInfo.environments
+  public static var env: [String: String] {
+    return ProcessInfo.processInfo.environment
+  }
 
   /// UserDefaults.standard
-  public static var userDefaults: UserDefaults {
+  public static var defaults: UserDefaults {
     return UserDefaults.standard
   }
 

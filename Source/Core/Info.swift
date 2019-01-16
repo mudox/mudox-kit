@@ -6,13 +6,13 @@ public enum Info {
     return The.process.processName
   }
   public static var appBundleID: String? {
-    return The.mainBundle.bundleIdentifier
+    return The.bundle.bundleIdentifier
   }
   public static var appRelease: String? {
-    return The.mainBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+    return The.bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
   }
   public static var appBuild: String? {
-    return The.mainBundle.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String
+    return The.bundle.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String
   }
 
   public static var isDebug: Bool {
@@ -67,10 +67,10 @@ public enum Info {
 
   // MARK: Screen
   public static var screenWidth: CGFloat {
-    return The.mainScreen.bounds.width
+    return The.screen.bounds.width
   }
 
   public static var screenHeight: CGFloat {
-    return The.mainScreen.bounds.height
+    return The.screen.bounds.height
   }
 }
