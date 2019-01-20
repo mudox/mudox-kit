@@ -35,13 +35,13 @@ public class FirstLaunchChecker: FirstLaunchCheckerType {
 
     let kind: FirstLaunchKind
     if lastRelease == nil {
-      jack.func().info("1st launch for the application")
+      jack.func().info("First launch for the application")
       kind = .application
     } else if lastRelease != currentRelease {
-      jack.func().info("1st launch for current release - \(currentRelease)")
+      jack.func().info("First launch for release <\(currentRelease)>")
       kind = .release
     } else {
-      jack.func().info("ordinary launch")
+      jack.func().info("Ordinary launch")
       kind = .other
     }
 
@@ -55,7 +55,7 @@ public class FirstLaunchChecker: FirstLaunchCheckerType {
     if let release = The.bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
       return release
     } else {
-      jack.sub(#function).warn("failed to get app release string, return an empty string")
+      jack.sub(#function).warn("Failed to get app release string, return an empty string")
       return ""
     }
   }
