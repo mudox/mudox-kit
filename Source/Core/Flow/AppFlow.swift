@@ -52,11 +52,16 @@ open class AppFlow: Flow, AppFlowType {
     }
 
     private func resetIfNeeded() {
-      resetModes?.forEach(reset)
+      if let modes = resetModes {
+        jack.func().info("Performing reset modes: \(resetModes)")
+        modes.forEach(reset)
+      } else {
+        jack.func().info("Nothing to reset")
+      }
     }
 
     open func reset(mode: String) {
-      jack.func().verbose("AppFlow.reset(_ mode:) does nothing, no need to call super in overrides")
+      jack.func().failure("AppFlow.reset(_ mode:) does nothing, no need to call super in overrides")
     }
 
   #endif
@@ -70,13 +75,13 @@ open class AppFlow: Flow, AppFlowType {
     }
 
     open func run(inDebugMode: String) {
-      jack.func().verbose("AppFlow.debugRun(mode:) does nothing, no need to call super in overrides")
+      jack.func().failure("AppFlow.debugRun(mode:) does nothing, no need to call super in overrides")
     }
 
   #endif
 
   open func runInReleaseMode() {
-    jack.func().verbose("AppFlow.releaseRun() does nothing, no need to call super in overrides")
+    jack.func().failure("AppFlow.releaseRun() does nothing, no need to call super in overrides")
   }
 
 }
