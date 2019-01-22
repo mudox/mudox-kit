@@ -24,7 +24,7 @@ open class AppFlow: Flow, AppFlowType {
 
       resetIfNeeded()
 
-      run(inDebugMode: runMode)
+      run(inDebugMode: Environs.appRunMode)
     }
 
   #else
@@ -42,26 +42,13 @@ open class AppFlow: Flow, AppFlowType {
 
   #if DEBUG
 
-    private var resetModes: [String]? {
-      return ProcessInfo.processInfo
-        .environment["APP_RESET_MODE"]?
-        .split(separator: " ")
-        .map { token in
-          String(token).lowercased()
-        }
-    }
-
     private func resetIfNeeded() {
-      if let modes = resetModes {
-        jack.func().info("Performing reset modes: \(resetModes)")
-        modes.forEach(reset)
-      } else {
-        jack.func().info("Nothing to reset")
-      }
+      let modes = Environs.appRestTokens
+      modes.forEach(reset)
     }
 
     open func reset(mode: String) {
-      jack.func().failure("AppFlow.reset(_ mode:) does nothing, no need to call super in overrides")
+      jack.func().failure("Abstract method should not be called")
     }
 
   #endif
@@ -70,18 +57,32 @@ open class AppFlow: Flow, AppFlowType {
 
   #if DEBUG
 
-    private var runMode: String {
-      return ProcessInfo.processInfo.environment["APP_RUN_MODE"] ?? "release"
-    }
-
     open func run(inDebugMode: String) {
-      jack.func().failure("AppFlow.debugRun(mode:) does nothing, no need to call super in overrides")
+      jack.func().failure("Abstract method should not be called")
     }
 
   #endif
 
   open func runInReleaseMode() {
-    jack.func().failure("AppFlow.releaseRun() does nothing, no need to call super in overrides")
+    jack.func().failure("Abstract method should not be called")
+  }
+
+}
+
+// MARK: - Related Environs
+
+extension Environs {
+
+  private static let appRunModeKey = "APP_RUN_MOD"
+  fileprivate static var appRunMode: String {
+    get { return string(forKey: appRunModeKey) ?? "release" }
+    set { set(string: newValue, forKey: appRunModeKey) }
+  }
+
+  private static let appResetTokensKey = "APP_RESET_TOKENS"
+  fileprivate static var appRestTokens: [String] {
+    get { return tokens(forKey: appResetTokensKey) }
+    set { set(tokens: newValue, forKey: appResetTokensKey) }
   }
 
 }
