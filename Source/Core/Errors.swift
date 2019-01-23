@@ -10,5 +10,4 @@ public enum Errors: Error {
   
   // General (uncategorized) error case
   case error(String)
-  
 }

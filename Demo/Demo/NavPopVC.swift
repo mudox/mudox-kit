@@ -5,11 +5,11 @@ import MudoxKit
 class NavPopVC: FormViewController {
   var popStyle: NavigationController.PopStyle {
     get {
-      let vc = The.mainWindow.rootViewController as! NavigationController
+      let vc = The.window.rootViewController as! NavigationController
       return vc.popStyle
     }
     set {
-      let vc = The.mainWindow.rootViewController as! NavigationController
+      let vc = The.window.rootViewController as! NavigationController
       vc.popStyle = newValue
     }
   }

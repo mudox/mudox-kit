@@ -16,6 +16,7 @@
 		F40ABC9F20B4427800AAC894 /* SequenceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40ABC9520B4427700AAC894 /* SequenceSpec.swift */; };
 		F40ABCA120B4427800AAC894 /* ArraySepc.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40ABC9720B4427700AAC894 /* ArraySepc.swift */; };
 		F40ABCA320B4427800AAC894 /* InfoSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40ABC9920B4427700AAC894 /* InfoSpec.swift */; };
+		F43B36F421F7E0F40076F561 /* EnvironsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43B36F321F7E0F40076F561 /* EnvironsSpec.swift */; };
 		F45A6A7520C80EC6001AE8AE /* ActivityCenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45A6A7420C80EC6001AE8AE /* ActivityCenterSpec.swift */; };
 		F46927AC20BE6B2100EA6670 /* RxOperatorsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46927AB20BE6B2100EA6670 /* RxOperatorsSpec.swift */; };
 		F498F0DE21DA5A71002D5A6D /* NSCodingCodableSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F498F0DD21DA5A71002D5A6D /* NSCodingCodableSpec.swift */; };
@@ -73,6 +74,7 @@
 		F40ABC9520B4427700AAC894 /* SequenceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceSpec.swift; sourceTree = "<group>"; };
 		F40ABC9720B4427700AAC894 /* ArraySepc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArraySepc.swift; sourceTree = "<group>"; };
 		F40ABC9920B4427700AAC894 /* InfoSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoSpec.swift; sourceTree = "<group>"; };
+		F43B36F321F7E0F40076F561 /* EnvironsSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironsSpec.swift; sourceTree = "<group>"; };
 		F45A6A7420C80EC6001AE8AE /* ActivityCenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCenterSpec.swift; sourceTree = "<group>"; };
 		F46927AB20BE6B2100EA6670 /* RxOperatorsSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxOperatorsSpec.swift; sourceTree = "<group>"; };
 		F498F0DD21DA5A71002D5A6D /* NSCodingCodableSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCodingCodableSpec.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				F40ABC7820B4421900AAC894 /* Info.plist */,
+				F43B36F321F7E0F40076F561 /* EnvironsSpec.swift */,
 				F40ABC9120B4427600AAC894 /* AlertLayoutSpec.swift */,
 				F498F0DD21DA5A71002D5A6D /* NSCodingCodableSpec.swift */,
 				F40ABC9720B4427700AAC894 /* ArraySepc.swift */,
@@ -453,6 +456,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F43B36F421F7E0F40076F561 /* EnvironsSpec.swift in Sources */,
 				F46927AC20BE6B2100EA6670 /* RxOperatorsSpec.swift in Sources */,
 				F498F0DE21DA5A71002D5A6D /* NSCodingCodableSpec.swift in Sources */,
 				F40ABCA320B4427800AAC894 /* InfoSpec.swift in Sources */,
