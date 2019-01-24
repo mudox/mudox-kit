@@ -8,33 +8,20 @@ private let jack = Jack().set(format: .short)
 
 open class CollectionController: UICollectionViewController, ClassInstanceCounting {
 
-  /// Constant bag which only release subscription(s) on view controller
-  /// deallocation.
-  ///
-  /// If you want to release subscription(s) within lifetime of the view
-  /// controller, define `var` bags with more meaningful names.
-  ///
-  /// ```
-  /// // Define dedicated bag for given subscriptions.
-  /// var imageTasksBag = DisposeBag()
-  /// // Release subscription explicitly.
-  /// imageTasksBag = DisposeBag()
-  /// ```
-  public let bag = DisposeBag()
+  // Subclasses no longer need to add this boilerplate
+  @available(*, unavailable, message: "init(coder:) is sealed")
+  public required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) is sealed")
+  }
+  
+  // No need in storyboard-free developing
+  private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    fatalError("init(nibName:bundle:) is sealed")
+  }
 
   // MARK: InstanceCounting
 
   static var roster: [String: Int] = [:]
-
-  // Subclasses no need to add this chunk of code
-  @available(*, unavailable, message: "init(coder:) has not been implemented")
-  public required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
-  private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-    fatalError("init(nibName:bundle:) is sealed for `CollectionController`")
-  }
 
   public override init(collectionViewLayout: UICollectionViewLayout) {
     super.init(nibName: nil, bundle: nil)
@@ -55,6 +42,8 @@ open class CollectionController: UICollectionViewController, ClassInstanceCounti
   open func setupView() {
     jack.func().failure("Abstract method")
   }
+
+  public let bag = DisposeBag()
 
   open func setupModel() {
     jack.func().failure("Abstract method")
