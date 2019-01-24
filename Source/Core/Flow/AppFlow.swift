@@ -73,7 +73,7 @@ open class AppFlow: Flow, AppFlowType {
 
 extension Environs {
 
-  private static let appRunModeKey = "APP_RUN_MOD"
+  private static let appRunModeKey = "APP_RUN_MODE"
   fileprivate static var appRunMode: String {
     get { return string(forKey: appRunModeKey) ?? "release" }
     set { set(string: newValue, forKey: appRunModeKey) }
