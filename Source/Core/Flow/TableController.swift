@@ -6,7 +6,7 @@ import JacKit
 
 private let jack = Jack().set(format: .short)
 
-open class ViewController: UIViewController, ClassInstanceCounting {
+open class TableController: UITableViewController, ClassInstanceCounting {
 
   /// Constant bag which only release subscription(s) on view controller
   /// deallocation.

@@ -2,7 +2,11 @@ import UIKit
 
 import RxSwift
 
-open class View: UIView, ClassInstanceCounting {
+import JacKit
+
+private let jack = Jack().set(format: .short)
+
+open class View: UIView {
 
   /// Constant bag which only release subscription(s) on view controller
   /// deallocation.
@@ -30,11 +34,16 @@ open class View: UIView, ClassInstanceCounting {
 
   public init() {
     super.init(frame: .zero)
-    checkIn()
+
+    setupView()
+    setupBinding()
   }
 
-  deinit {
-    checkOut()
+  open func setupView() {
+    jack.func().failure("Abstract method")
   }
 
+  open func setupBinding() {
+    jack.func().failure("Abstract method")
+  }
 }
