@@ -2,10 +2,6 @@ import UIKit
 
 import RxSwift
 
-import JacKit
-
-private let jack = Jack().set(format: .short)
-
 open class CollectionCell: UICollectionViewCell {
 
   // Subclasses no longer need to add this boilerplate
@@ -14,6 +10,8 @@ open class CollectionCell: UICollectionViewCell {
     fatalError("init(coder:) is sealed")
   }
 
+  // Subclasses no need to add init method ,just override `setupView`
+  // and `setupBinding` below.
   public init() {
     super.init(frame: .zero)
 
@@ -21,14 +19,10 @@ open class CollectionCell: UICollectionViewCell {
     setupBinding()
   }
 
-  open func setupView() {
-    jack.func().failure("Abstract method")
-  }
+  open func setupView() {}
 
   private let bag = DisposeBag()
 
-  open func setupBinding() {
-    jack.func().failure("Abstract method")
-  }
+  open func setupBinding() {}
 
 }
