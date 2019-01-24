@@ -31,8 +31,12 @@ open class CollectionController: UICollectionViewController, ClassInstanceCounti
   public required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
+  private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    fatalError("init(nibName:bundle:) is sealed for `CollectionController`")
+  }
 
-  public init() {
+  public override init(collectionViewLayout: UICollectionViewLayout) {
     super.init(nibName: nil, bundle: nil)
     checkIn()
   }
