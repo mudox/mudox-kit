@@ -22,12 +22,14 @@ public extension ObservableType {
     }
 
     return asObservable().do(
-      onNext: { log(".next \($0)") },
-      onError: { log(".error \($0)") },
-      onCompleted: { log(".completed") },
-      onSubscribe: { log(".subscribe") },
-      onSubscribed: { log(".subscribed") },
-      onDispose: { log(".disposed") }
+      // swiftformat:disable consecutiveSpaces
+      onNext:       { log(" next \($0)") },
+      onError:      { log(" error \($0)") },
+      onCompleted:  { log(" ============================== completed") },
+      onSubscribe:  { log(" subscribe ------------------------------") },
+      onSubscribed: { log(" ----------------------------- subscribed") },
+      onDispose:    { log(" =============================== disposed") }
+      // swiftformat:enable all
     )
   }
 
@@ -52,11 +54,13 @@ public extension SharedSequenceConvertibleType {
     }
 
     return `do`(
-      onNext: { log(".next \($0)") },
-      onCompleted: { log(".completed") },
-      onSubscribe: { log(".subscribe") },
-      onSubscribed: { log(".subscribed") },
-      onDispose: { log(".disposed") }
+      // swiftformat:disable consecutiveSpaces
+      onNext:       { log(" next \($0)") },
+      onCompleted:  { log(" ============================== completed") },
+      onSubscribe:  { log(" subscribe ------------------------------") },
+      onSubscribed: { log(" ----------------------------- subscribed") },
+      onDispose:    { log(" =============================== disposed") }
+      // swiftformat:enable all
     )
   }
 
