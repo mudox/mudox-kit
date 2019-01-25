@@ -11,7 +11,7 @@ public protocol AppFlowType: FlowType {
   func run()
 
   #if DEBUG
-    func reset(mode: String)
+    func reset(_ target: String)
   #endif
 }
 
@@ -47,8 +47,8 @@ open class AppFlow: Flow, AppFlowType {
       modes.forEach(reset)
     }
 
-    open func reset(mode: String) {
-      jack.func().failure("Abstract method should not be called")
+    open func reset(_ target: String) {
+      jack.func().failure("Abstract method")
     }
 
   #endif
@@ -58,29 +58,29 @@ open class AppFlow: Flow, AppFlowType {
   #if DEBUG
 
     open func run(inDebugMode: String) {
-      jack.func().failure("Abstract method should not be called")
+      jack.func().failure("Abstract method")
     }
 
   #endif
 
   open func runInReleaseMode() {
-    jack.func().failure("Abstract method should not be called")
+    jack.func().failure("Abstract method")
   }
 
 }
 
 // MARK: - Related Environs
 
-extension Environs {
+fileprivate extension Environs {
 
   private static let appRunModeKey = "APP_RUN_MODE"
-  fileprivate static var appRunMode: String {
+  static var appRunMode: String {
     get { return string(forKey: appRunModeKey) ?? "release" }
     set { set(string: newValue, forKey: appRunModeKey) }
   }
 
-  private static let appResetTokensKey = "APP_RESET_TOKENS"
-  fileprivate static var appRestTokens: [String] {
+  private static let appResetTokensKey = "APP_RESET_TARGETS"
+  static var appRestTokens: [String] {
     get { return tokens(forKey: appResetTokensKey) }
     set { set(tokens: newValue, forKey: appResetTokensKey) }
   }
