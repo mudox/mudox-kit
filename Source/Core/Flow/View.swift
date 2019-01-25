@@ -8,29 +8,15 @@ private let jack = Jack().set(format: .short)
 
 open class View: UIView {
 
-  /// Constant bag which only release subscription(s) on view controller
-  /// deallocation.
-  ///
-  /// If you want to release subscription(s) within lifetime of the view
-  /// controller, define `var` bags with more meaningful names.
-  ///
-  /// ```
-  /// // Define dedicated bag for given subscriptions.
-  /// var imageTasksBag = DisposeBag()
-  /// // Release subscription explicitly.
-  /// imageTasksBag = DisposeBag()
-  /// ```
-  public let bag = DisposeBag()
+  // Subclasses no longer need to add this boilerplate
+  @available(*, unavailable, message: "init(coder:) is sealed")
+  public required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) is sealed")
+  }
 
   // MARK: InstanceCounting
 
   static var roster: [String: Int] = [:]
-
-  // Subclasses no need to add this chunk of code
-  @available(*, unavailable, message: "init(coder:) has not been implemented")
-  public required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
 
   public init() {
     super.init(frame: .zero)
@@ -39,11 +25,10 @@ open class View: UIView {
     setupBinding()
   }
 
-  open func setupView() {
-    jack.func().failure("Abstract method")
-  }
+  open func setupView() {}
 
-  open func setupBinding() {
-    jack.func().failure("Abstract method")
-  }
+  public let bag = DisposeBag()
+
+  open func setupBinding() {}
+  
 }

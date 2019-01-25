@@ -10,10 +10,8 @@ open class CollectionCell: UICollectionViewCell {
     fatalError("init(coder:) is sealed")
   }
 
-  // Subclasses no need to add init method ,just override `setupView`
-  // and `setupBinding` below.
-  public init() {
-    super.init(frame: .zero)
+  public override init(frame: CGRect) {
+    super.init(frame: frame)
 
     setupView()
     setupBinding()

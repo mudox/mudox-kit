@@ -19,12 +19,12 @@ open class CollectionController: UICollectionViewController, ClassInstanceCounti
     fatalError("init(nibName:bundle:) is sealed")
   }
 
-  // MARK: InstanceCounting
+  // MARK: ClassInstanceCounting
 
   static var roster: [String: Int] = [:]
 
   public override init(collectionViewLayout: UICollectionViewLayout) {
-    super.init(nibName: nil, bundle: nil)
+    super.init(collectionViewLayout: collectionViewLayout)
     checkIn()
   }
 
@@ -39,14 +39,10 @@ open class CollectionController: UICollectionViewController, ClassInstanceCounti
     setupModel()
   }
 
-  open func setupView() {
-    jack.func().failure("Abstract method")
-  }
+  open func setupView() {}
 
   public let bag = DisposeBag()
 
-  open func setupModel() {
-    jack.func().failure("Abstract method")
-  }
+  open func setupModel() {}
 
 }
