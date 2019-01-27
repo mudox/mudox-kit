@@ -23,8 +23,8 @@ public extension ObservableType {
 
     return asObservable().do(
       // swiftformat:disable consecutiveSpaces
-      onNext:       { log(" next \($0)") },
-      onError:      { log(" error \($0)") },
+      onNext:       { log(" next \(String(reflecting: $0))") },
+      onError:      { log(" error \(String(reflecting: $0))") },
       onCompleted:  { log(" ============================== completed") },
       onSubscribe:  { log(" subscribe ------------------------------") },
       onSubscribed: { log(" ----------------------------- subscribed") },
@@ -55,7 +55,7 @@ public extension SharedSequenceConvertibleType {
 
     return `do`(
       // swiftformat:disable consecutiveSpaces
-      onNext:       { log(" next \($0)") },
+      onNext:       { log(" next \(String(reflecting: $0))") },
       onCompleted:  { log(" ============================== completed") },
       onSubscribe:  { log(" subscribe ------------------------------") },
       onSubscribed: { log(" ----------------------------- subscribed") },
