@@ -16,6 +16,7 @@ public protocol AppFlowType: FlowType {
 }
 
 open class AppFlow: Flow, AppFlowType {
+  
   #if DEBUG
 
     public func run() {

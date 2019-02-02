@@ -27,6 +27,14 @@ open class Flow: FlowType, ClassInstanceCounting {
     self.stage = stage
     checkIn()
   }
+  
+  convenience public init(on window: UIWindow) {
+    self.init(on: .window(window))
+  }
+    
+  convenience public init(on viewController: UIViewController) {
+    self.init(on: .viewController(viewController))
+  }
 
   deinit {
     checkOut()
