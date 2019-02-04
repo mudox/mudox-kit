@@ -8,7 +8,6 @@ private let jack = Jack().set(format: .short)
 
 open class ViewController: UIViewController, ClassInstanceCounting {
 
-
   // MARK: InstanceCounting
 
   static var roster: [String: Int] = [:]
@@ -28,6 +27,8 @@ open class ViewController: UIViewController, ClassInstanceCounting {
     checkOut()
   }
 
+  // MARK: - Skeleton
+
   open override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -36,7 +37,7 @@ open class ViewController: UIViewController, ClassInstanceCounting {
   }
 
   open func setupView() {}
-  
+
   public let bag = DisposeBag()
 
   open func setupModel() {}

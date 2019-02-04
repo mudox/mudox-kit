@@ -14,9 +14,7 @@ open class View: UIView {
     fatalError("init(coder:) is sealed")
   }
 
-  // MARK: InstanceCounting
-
-  static var roster: [String: Int] = [:]
+  // MARK: - Skeleton
 
   public init() {
     super.init(frame: .zero)
@@ -30,5 +28,5 @@ open class View: UIView {
   public let bag = DisposeBag()
 
   open func setupBinding() {}
-  
+
 }

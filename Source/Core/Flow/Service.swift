@@ -1,10 +1,10 @@
 import Foundation
 
-class Service: ClassInstanceCounting {
+open class Service: ClassInstanceCounting {
 
   static var roster: [String: Int] = [:]
 
-  required init() {
+  public required init() {
     checkIn()
   }
 
