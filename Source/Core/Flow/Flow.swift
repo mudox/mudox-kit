@@ -41,3 +41,18 @@ open class Flow: FlowType, ClassInstanceCounting {
   }
   
 }
+
+
+/// Privatize initializer inherited from `Flow`, providing more typesafe
+/// initializer `init(in: UITabBarController)`.
+open class TabBarChildFlow: Flow {
+
+  public init(in controller: UITabBarController) {
+    super.init(on: .viewController(controller))
+  }
+  
+  private override init(on stage: Flow.Stage) {
+    fatalError("Use `init(in:)` instead")
+  }
+
+}
