@@ -64,8 +64,26 @@ public enum The {
   /// ```swift
   /// UIApplication.shared.windows.first!.rootViewController
   /// ```
-  public static var controller: UIViewController {
+  public static var rootController: UIViewController {
     return window.rootViewController!
+  }
+
+  /// The root tab bar view controlller of app's main window
+  ///
+  /// ```swift
+  /// UIApplication.shared.windows.first!.rootViewController
+  /// ```
+  public static var rootTabBarController: UITabBarController {
+    return window.rootViewController as! UITabBarController
+  }
+
+  /// The root navigation controlller of app's main window
+  ///
+  /// ```swift
+  /// UIApplication.shared.windows.first!.rootViewController
+  /// ```
+  public static var rootNavigationController: UINavigationController {
+    return window.rootViewController as! UINavigationController
   }
 
   /// The default notification center
@@ -85,7 +103,7 @@ public enum The {
   public static var process: ProcessInfo {
     return ProcessInfo.processInfo
   }
-  
+
   /// The environments directionary of the process
   ///
   /// ```swift
